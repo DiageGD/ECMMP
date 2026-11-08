@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Synthèse et Conclusion générale</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Synthèse générale et Conclusion</h2>
+
+        <h3>
+          1. Synthèse générale — Environnements de développement sur appareils
+          compacts et systèmes embarqués
+        </h3>
+        <p>
+          Les trois articles étudiés présentent différentes solutions permettant
+          de développer des programmes sur des appareils compacts ou destinés à
+          piloter du matériel électronique. Bien que leurs fonctionnements
+          soient différents, ils cherchent tous à rendre le développement plus
+          accessible, en proposant des outils adaptés aux besoins des
+          utilisateurs.
+        </p>
+        <p>
+          Le premier article présente ViperIDE, un environnement accessible
+          depuis un navigateur web. Son principal avantage est de pouvoir être
+          utilisé sur différents appareils sans installer un logiciel complet.
+          Il intègre également plusieurs outils utiles, comme un éditeur de
+          code, un terminal interactif et un gestionnaire de paquets. Cette
+          dernière fonctionnalité permet notamment d'ajouter des bibliothèques
+          selon les besoins. Cependant, son utilisation nécessite un appareil
+          externe et une connexion avec la carte électronique sur laquelle le
+          programme doit être exécuté.
+        </p>
+        <p>
+          Le deuxième article présente Pico VS Code, une extension destinée à
+          simplifier le développement sur les cartes Raspberry Pi Pico. Elle
+          permet de retrouver plusieurs outils directement dans Visual Studio
+          Code, notamment des assistants de configuration, de la documentation
+          et des fonctions de compilation ou de débogage pour les projets
+          concernés. Cette approche offre davantage de confort au développeur et
+          facilite la mise en place des projets. En revanche, elle nécessite un
+          ordinateur sur lequel installer et utiliser l'environnement de
+          développement.
+        </p>
+        <p>
+          Enfin, le troisième article présente l'arrivée de Visual Studio Code
+          sur Raspberry Pi OS. Contrairement aux deux solutions précédentes, il
+          ne s'agit pas d'un outil spécifiquement consacré au développement
+          MicroPython sur microcontrôleur, mais d'un véritable éditeur
+          polyvalent installé directement sur un petit ordinateur. Grâce à ses
+          nombreuses extensions, il permet de travailler sur différents langages
+          et types de projets. Cette solution offre donc une grande liberté,
+          mais nécessite un système d'exploitation complet et des ressources
+          matérielles suffisantes pour faire fonctionner l'éditeur.
+        </p>
+
+        <h4>a. Bilan des avantages et des limites</h4>
+        <p>
+          Ces trois solutions montrent qu'il existe plusieurs manières d'adapter
+          un environnement de développement à un appareil compact. Certaines
+          privilégient l'accessibilité depuis un navigateur, d'autres
+          enrichissent un éditeur existant grâce à des extensions, tandis que
+          d'autres encore cherchent à faire fonctionner un environnement de
+          bureau complet sur un ordinateur de petite taille.
+        </p>
+        <p>
+          Ces approches présentent plusieurs avantages communs : elles
+          regroupent différents outils dans un même environnement, facilitent
+          l'écriture et l'exécution des programmes et permettent d'ajouter des
+          fonctionnalités selon les besoins. Elles offrent ainsi un confort de
+          développement important et évitent parfois à l'utilisateur de devoir
+          configurer lui-même l'ensemble des outils nécessaires.
+        </p>
+        <p>
+          Cependant, elles reposent généralement sur un appareil capable
+          d'accueillir l'environnement de développement, en plus du matériel sur
+          lequel les programmes doivent éventuellement être exécutés. Cette
+          séparation peut nécessiter une connexion entre les deux appareils et
+          impose de disposer d'un ordinateur ou d'un autre support externe. De
+          plus, les environnements les plus complets peuvent demander davantage
+          de ressources matérielles et une configuration plus importante.
+        </p>
+
+        <h4>b. Mise en perspective avec l'ECMMP</h4>
+        <p>
+          Notre projet ECMMP adopte une approche différente de celles présentées
+          dans les articles. Son objectif est de réunir directement l'édition et
+          l'exécution des programmes dans un seul appareil : la calculatrice
+          NumWorks. Contrairement aux solutions étudiées, il n'est donc pas
+          nécessaire de disposer d'un ordinateur externe pour développer et
+          tester des scripts dans l'environnement prévu.
+        </p>
+        <p>
+          Cette autonomie représente le principal avantage de notre projet. Elle
+          permet de disposer d'un environnement de programmation directement sur
+          la calculatrice, sans avoir à installer ou configurer un logiciel sur
+          une autre machine. Elle s'accompagne également d'une volonté de
+          modularité, afin de pouvoir organiser les différentes fonctionnalités
+          d'ECMMP en plusieurs modules.
+        </p>
+        <p>
+          En contrepartie, le développement sur NumWorks impose des contraintes
+          bien plus importantes. Les ressources matérielles sont limitées,
+          l'écran réduit les possibilités de l'interface et la version de
+          MicroPython intégrée à Epsilon ne propose pas toutes les
+          fonctionnalités et bibliothèques que l'on pourrait retrouver dans
+          d'autres environnements. Il est donc nécessaire d'adapter le code, de
+          limiter certaines opérations et de chercher constamment à optimiser
+          l'utilisation de la mémoire et de l'espace de stockage.
+        </p>
+        <p>
+          La comparaison de ces différentes solutions montre finalement qu'il
+          n'existe pas une seule manière de concevoir un environnement de
+          développement. Un éditeur complet offre davantage de fonctionnalités
+          et de confort, tandis qu'un environnement embarqué peut privilégier
+          l'autonomie et la simplicité d'utilisation. Chaque approche implique
+          des choix et des compromis en fonction du matériel disponible et des
+          objectifs recherchés.
+        </p>
+        <p>
+          ECMMP s'inscrit ainsi dans cette seconde approche : plutôt que de
+          chercher à reproduire toutes les possibilités d'un éditeur de bureau
+          comme Visual Studio Code, le projet cherche à en reprendre certains
+          principes, notamment la modularité, tout en les adaptant aux capacités
+          et aux limites de la calculatrice NumWorks.
+        </p>
+
+        <h3>2. Conclusion générale</h3>
+
+        <h4>a. Bilan du rapport technique</h4>
+        <p>
+          L'étude du support a permis de mieux comprendre les possibilités et
+          les limites de la calculatrice NumWorks. Son microcontrôleur, sa
+          mémoire et son environnement Epsilon offrent une base suffisante pour
+          expérimenter un éditeur de code, mais les ressources disponibles
+          restent limitées. Les essais réalisés sur l'affichage, les chaînes de
+          caractères et la gestion de la mémoire montrent qu'il faut faire
+          attention à la taille des données et au nombre d'opérations
+          effectuées. Il faut aussi tenir compte des différences entre le
+          MicroPython de la calculatrice et un Python installé sur un
+          ordinateur.
+        </p>
+        <p>
+          À partir de ces contraintes, le rapport a présenté une architecture
+          organisée en trois couches. Le cœur assure la coordination générale et
+          conserve certaines fonctions propres à l'éditeur. Les modules de
+          deuxième couche prennent en charge les traitements spécialisés : les
+          modules de langages s'occupent de l'analyse, de la représentation ou
+          de l'exécution du code, tandis que les modules d'outils gèrent
+          notamment les interactions avec le clavier et le curseur. La troisième
+          couche ouvre des possibilités d'extension, mais reste volontairement
+          prospective.
+        </p>
+        <p>
+          Il faut toutefois distinguer l'architecture décrite de ce qui est déjà
+          réalisé. Les premiers éléments du cœur et les modules
+          <code>keyboard.py</code> et <code>mouse.py</code> servent à mettre en
+          place et à tester cette organisation. En revanche, plusieurs fonctions
+          présentées dans le rapport restent à développer ou à valider, en
+          particulier la prise en charge complète des langages, leur
+          représentation intermédiaire et les mécanismes d'extension. Le rapport
+          décrit donc à la fois des réalisations, des choix de conception et des
+          pistes de travail : il ne présente pas l'ECMMP comme un IDE déjà
+          terminé.
+        </p>
+        <p>
+          La suite du développement devra surtout permettre de rendre l'édition
+          du code réellement utilisable, de compléter les interactions, puis
+          d'intégrer progressivement un premier module de langage. Chaque étape
+          devra être testée directement sur la calculatrice afin de vérifier les
+          performances, la consommation mémoire et la réactivité de l'interface.
+          Les choix d'architecture pourront ensuite être ajustés à partir des
+          résultats obtenus.
+        </p>
+
+        <h4>b. Apports de la veille et perspectives</h4>
+        <p>
+          La veille technologique a permis d'étudier trois approches
+          différentes. ViperIDE propose un environnement accessible depuis un
+          navigateur. Pico VS Code ajoute des outils spécialisés à un éditeur
+          déjà connu. Enfin, Visual Studio Code sur Raspberry Pi montre qu'un
+          éditeur complet peut fonctionner sur un ordinateur compact. Ces
+          exemples ne répondent pas exactement au même besoin, mais ils montrent
+          plusieurs façons de regrouper des outils et de faciliter le
+          développement sur des appareils de petite taille.
+        </p>
+        <p>
+          La principale différence avec l'ECMMP est le support utilisé. Les
+          solutions étudiées s'appuient sur un navigateur ou sur un ordinateur
+          capable d'exécuter un environnement de développement. L'ECMMP cherche
+          au contraire à fonctionner directement sur la NumWorks, qui sert à la
+          fois de support de développement et de machine d'exécution pour les
+          programmes concernés. Cette autonomie est intéressante, mais elle
+          impose des compromis : écran réduit, saisie moins confortable, mémoire
+          limitée et fonctionnalités MicroPython moins nombreuses.
+        </p>
+        <p>
+          Cette veille ne fournit donc pas un modèle à reproduire tel quel. Elle
+          aide plutôt à identifier des principes utiles, comme la modularité, le
+          regroupement des outils et l'adaptation de l'environnement au matériel
+          disponible. Elle permet aussi de mieux situer le projet : son intérêt
+          ne vient pas du fait qu'il reprendrait toutes les possibilités d'un
+          éditeur comme Visual Studio Code, mais de la recherche d'une solution
+          adaptée à une calculatrice et à ses contraintes.
+        </p>
+        <p>
+          L'ECMMP reste un projet en cours de développement. La priorité est
+          maintenant de transformer progressivement l'architecture proposée en
+          fonctionnalités utilisables, sans perdre de vue les limites du
+          support. Les évolutions futures devront répondre à des besoins réels
+          et apporter un avantage suffisant pour justifier leur coût en mémoire,
+          en calcul et en maintenance. C'est ainsi que le projet pourra gagner
+          en fonctionnalités tout en restant adapté à la NumWorks.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

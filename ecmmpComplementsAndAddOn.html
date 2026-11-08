@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Compléments et extensions (C3)</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Compléments : troisième couche</h2>
+
+        <p>
+          La troisième couche de l'architecture de l'ECMMP correspond aux
+          possibilités d'extension des modules existants. Contrairement aux deux
+          premières couches, dont les rôles et les mécanismes de fonctionnement
+          sont définis par la conception actuelle du projet, cette couche reste
+          essentiellement prospective.
+        </p>
+        <p>
+          Son objectif est de ne pas limiter définitivement l'ECMMP aux
+          fonctionnalités imaginées lors de son développement initial. En effet,
+          un environnement modulaire peut présenter des possibilités d'évolution
+          qui n'ont pas nécessairement été anticipées par son concepteur.
+        </p>
+        <p>
+          Un utilisateur ou un développeur extérieur pourrait ainsi identifier
+          un besoin particulier et souhaiter enrichir un module existant, lui
+          associer un mécanisme supplémentaire ou proposer une organisation
+          différente de certaines fonctionnalités.
+        </p>
+        <p>
+          La troisième couche constitue donc une ouverture volontaire de
+          l'architecture. Elle laisse la possibilité d'introduire des
+          compléments sans considérer que l'organisation initiale de l'ECMMP
+          doit rester immuable.
+        </p>
+        <p>
+          Il est toutefois important de préciser que cette couche n'a pas fait
+          l'objet d'une implémentation complète dans le cadre du développement
+          actuel. Les mécanismes présentés ci-dessous correspondent à des
+          hypothèses d'évolution, dont la faisabilité et l'intérêt devront être
+          évalués en fonction des besoins réels.
+        </p>
+
+        <h3>1. Principe général des compléments</h3>
+
+        <h4>a. Une architecture ouverte à l'évolution</h4>
+        <p>
+          Les deux premières couches permettent déjà de distinguer le cœur de
+          l'IDE et les modules spécialisés. Cette organisation constitue une
+          base permettant d'ajouter progressivement des fonctionnalités.
+        </p>
+        <p>
+          Cependant, la modularité ne garantit pas automatiquement qu'un module
+          puisse être étendu sans aucune modification de son environnement. Dans
+          l'architecture actuelle, le cœur connaît les points d'entrée des
+          modules qu'il utilise. Lorsqu'un nouveau composant doit intervenir
+          dans le fonctionnement d'un outil existant, cette organisation peut
+          nécessiter une adaptation des différents éléments concernés.
+        </p>
+        <p>
+          Un complément peut donc dépasser le simple ajout d'un fichier
+          indépendant. Il peut impliquer une modification du cœur, une évolution
+          du module d'origine et l'intégration d'un nouveau composant
+          spécialisé. Cette possibilité constituye le principe fondamental de la
+          troisième couche : permettre d'enrichir l'architecture existante
+          lorsque les besoins dépassent les fonctionnalités initialement
+          prévues.
+        </p>
+
+        <h4>b. Des besoins qui n'ont pas nécessairement été anticipés</h4>
+        <p>
+          En tant que développeur initial de l'ECMMP, il est difficile
+          d'identifier à l'avance l'ensemble des usages possibles de
+          l'environnement. Un module conçu pour répondre à un besoin précis
+          peut, par exemple, être utilisé dans un contexte différent de celui
+          envisagé lors de sa création.
+        </p>
+        <p>
+          Un autre développeur pourrait alors considérer que son fonctionnement
+          mérite d'être complété, adapté ou associé à de nouvelles
+          fonctionnalités. Cette situation pourrait notamment se produire
+          lorsqu'un utilisateur souhaite modifier profondément le comportement
+          d'un outil existant, sans vouloir remplacer entièrement le composant
+          d'origine. Il devient alors intéressant de disposer d'une architecture
+          dans laquelle les modules peuvent eux-mêmes être enrichis par d'autres
+          composants.
+        </p>
+
+        <h3>2. Compléments des modules d'outils</h3>
+
+        <h4>a. Modulation de modules pour des modules</h4>
+        <p>
+          L'une des évolutions envisageables consiste à permettre à un module
+          supplémentaire d'intervenir directement dans le fonctionnement d'un
+          module d'outil existant. Cette organisation introduirait une relation
+          de dépendance supplémentaire entre les composants.
+        </p>
+        <p>
+          Prenons l'exemple du module <code>keyboard.py</code>. Celui-ci possède
+          déjà son propre fonctionnement interne et communique avec le cœur par
+          l'intermédiaire de ses points d'entrée principaux. Un développeur
+          extérieur pourrait cependant identifier un intérêt à lui ajouter un
+          mécanisme particulier, nécessitant une organisation différente de la
+          gestion des entrées clavier.
+        </p>
+        <p>
+          Dans une telle situation, le simple ajout d'une fonction indépendante
+          ne serait pas nécessairement suffisant. Il pourrait être nécessaire de
+          modifier plusieurs éléments :
+        </p>
+        <ul>
+          <li>
+            Le cœur de l'IDE, afin d'adapter les appels et la transmission des
+            informations au nouveau fonctionnement.
+          </li>
+          <li>
+            Le module d'origine, afin de prendre en compte les modifications
+            nécessaires à son interface ou à son comportement.
+          </li>
+          <li>
+            Le nouveau module complémentaire, chargé de réaliser les traitements
+            supplémentaires.
+          </li>
+        </ul>
+        <p>
+          Le complément viendrait ainsi enrichir un composant déjà intégré à
+          l'architecture, plutôt que de fonctionner comme un outil totalement
+          indépendant. Cette organisation pourrait conduire à introduire un
+          niveau supplémentaire de dépendance, susceptible d'être considéré
+          comme une quatrième couche dans certains cas.
+        </p>
+
+        <h4>b. Adaptation de l'architecture et préservation de sa cohérence</h4>
+        <p>
+          L'ajout d'un complément peut entraîner des modifications qui dépassent
+          son propre fonctionnement interne. En effet, si le nouveau composant
+          modifie la manière dont un outil reçoit ou transmet ses informations,
+          le cœur doit continuer à pouvoir communiquer correctement avec
+          l'ensemble.
+        </p>
+        <p>
+          Cette adaptation est importante pour éviter que les différents
+          composants ne fonctionnent selon des conventions incompatibles. Une
+          intégration incorrecte pourrait notamment entraîner des incohérences
+          dans les paramètres transmis, des appels redondants ou des conflits
+          entre les responsabilités des modules. Le développement de compléments
+          impose donc de conserver une vision globale de l'architecture.
+        </p>
+
+        <h3>3. Compléments des modules linguistiques</h3>
+
+        <h4>a. Extension et création de modules originaux</h4>
+        <p>
+          Les modules linguistiques constituent également des composants
+          susceptibles de bénéficier de compléments. Leur architecture interne
+          étant particulièrement développée, il est envisageable qu'un
+          développeur souhaite ajouter des traitements supplémentaires à un
+          module existant.
+        </p>
+        <p>
+          Ces compléments pourraient notamment concerner l'analyse du contenu,
+          la représentation des éléments du langage ou certaines opérations
+          propres à son traitement. Un module linguistique pourrait ainsi être
+          enrichi sans que l'ensemble de son fonctionnement initial soit
+          nécessairement remplacé. Une autre possibilité consisterait à
+          développer des composants spécialisés destinés à être utilisés par
+          plusieurs modules linguistiques.
+        </p>
+
+        <h4>b. Limites de conception et d'ajout de modules</h4>
+        <p>
+          La création de compléments supplémentaires soulève plusieurs
+          difficultés :
+        </p>
+        <ul>
+          <li>La compatibilité avec les modules existants et le cœur.</li>
+          <li>La complexité accrue des dépendances entre composants.</li>
+          <li>
+            Les contraintes liées aux ressources matérielles et à la mémoire
+            vive de la NumWorks.
+          </li>
+          <li>
+            La complexité de la maintenance en cas de développements
+            indépendants.
+          </li>
+        </ul>
+
+        <h3>4. Limites actuelles et perspectives</h3>
+
+        <h4>a. Une couche volontairement prospective</h4>
+        <p>
+          Contrairement aux deux premières couches, la troisième ne répond pas à
+          un besoin immédiat identifié lors du développement de l'ECMMP. Son
+          maintien dans l'architecture répond à une volonté différente : ne pas
+          fermer artificiellement les possibilités d'évolution du projet.
+        </p>
+
+        <h4>b. Le rôle de futurs développeurs et évolution conditionnée</h4>
+        <p>
+          L'ECMMP étant conçu comme un environnement modulaire, son évolution
+          pourrait s'appuyer sur de futures contributions. Chaque complément
+          devra toutefois présenter un intérêt identifiable et justifier son
+          coût en mémoire et en calcul.
+        </p>
+
+        <h3>Conclusion de la troisième couche</h3>
+        <p>
+          La troisième couche représente une ouverture volontaire de
+          l'architecture de l'ECMMP vers des possibilités d'extension non
+          nécessairement connues au moment de sa conception. Elle propose une
+          première organisation cohérente tout en laissant la possibilité de la
+          compléter lorsque de nouveaux usages le justifieront.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

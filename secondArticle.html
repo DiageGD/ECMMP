@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Article 2</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Veille technologique</h2>
+        <h3>
+          Article 2 — Pico VS Code : une extension pour simplifier le
+          développement
+        </h3>
+
+        <p>
+          <strong>Titre :</strong> Boost Your Pico Projects with the new Pico VS
+          Code Extension<br />
+          <strong>Auteur :</strong> Paul Oberosler<br />
+          <strong>Source :</strong> Raspberry Pi<br />
+          <strong>Date :</strong> 18 septembre 2024<br />
+          <strong>Lien :</strong>
+          <a
+            href="https://www.raspberrypi.com/news/pico-vscode-extension/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Consulter l'article original sur Raspberry Pi</a
+          >
+        </p>
+
+        <h4>1. Présentation de l'article</h4>
+        <p>
+          L'article publié sur le site officiel de Raspberry Pi présente Pico VS
+          Code, une extension destinée à Visual Studio Code et conçue pour
+          faciliter le développement sur les cartes Raspberry Pi Pico. Au moment
+          de la publication, l'extension est présentée en version bêta publique.
+        </p>
+        <p>
+          Son objectif principal est de simplifier la configuration des projets,
+          qui peut être assez compliquée dans le domaine du développement
+          embarqué. En effet, les développeurs doivent parfois installer et
+          configurer plusieurs outils, comme des kits de développement (SDK),
+          des systèmes de compilation et des chaînes d'outils.
+        </p>
+        <p>
+          L'extension propose notamment un assistant de création de projets, des
+          exemples déjà préparés et des outils pour gérer leur configuration.
+          Elle prend en charge le développement en C/C++ ainsi que la création
+          de projets en MicroPython. Dans ce dernier cas, elle s'appuie sur
+          l'extension MicroPico pour envoyer et gérer les programmes sur la
+          carte.
+        </p>
+        <p>
+          Pour les projets en C/C++, l'extension permet également de compiler le
+          programme, de transférer le résultat sur la carte et d'utiliser des
+          outils de débogage. Elle intègre enfin une documentation accessible
+          directement dans Visual Studio Code, même sans connexion Internet.
+        </p>
+
+        <h4>2. Analyse des avantages et des limites</h4>
+        <p>
+          Le principal avantage de Pico VS Code est de rendre le développement
+          sur Raspberry Pi Pico plus accessible. Les assistants et les
+          configurations automatiques évitent à l'utilisateur de devoir tout
+          préparer manuellement. Il peut ainsi se concentrer davantage sur son
+          programme que sur l'installation des outils nécessaires.
+        </p>
+        <p>
+          L'intégration de la documentation est également intéressante : les
+          informations utiles peuvent être consultées directement depuis
+          l'éditeur, sans devoir ouvrir plusieurs pages sur Internet. Les outils
+          de débogage apportent aussi un réel confort pour les projets en C/C++.
+        </p>
+        <p>
+          En revanche, cette solution nécessite un ordinateur sur lequel Visual
+          Studio Code et ses extensions peuvent être installés. Certaines
+          fonctionnalités avancées, comme le débogage matériel, demandent
+          également du matériel supplémentaire, tel que le Raspberry Pi Debug
+          Probe. L'environnement est donc plus complet, mais sa mise en place
+          reste liée à une machine externe et à ses différents outils.
+        </p>
+
+        <h4>3. Comparaison avec ECMMP</h4>
+        <p>
+          ECMMP fait le choix inverse en intégrant directement l'édition et
+          l'exécution des programmes dans la calculatrice NumWorks. Il n'est
+          donc pas nécessaire de disposer d'un ordinateur pour développer et
+          tester un script dans son environnement habituel.
+        </p>
+        <p>
+          Cependant, cette autonomie se paie par des possibilités plus limitées.
+          Là où Pico VS Code propose des outils avancés de compilation, de
+          débogage et de documentation, ECMMP doit fonctionner avec les moyens
+          disponibles dans Epsilon. Son interface est également adaptée aux
+          dimensions de l'écran et aux ressources de la calculatrice.
+        </p>
+        <p>
+          Cette comparaison montre deux approches différentes du développement
+          embarqué. Pico VS Code cherche à faciliter le travail du développeur
+          grâce à un environnement de bureau complet, tandis qu'ECMMP cherche à
+          réunir les outils essentiels directement sur la machine utilisée pour
+          exécuter les programmes.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

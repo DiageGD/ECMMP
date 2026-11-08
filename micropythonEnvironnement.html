@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Environnement MicroPython</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>L'environnement MicroPython</h2>
+        <p>
+          L'environnement MicroPython constitue la couche logicielle sur
+          laquelle repose le développement d'ECMMP. Bien qu'il conserve une
+          grande partie de la syntaxe et des mécanismes du langage Python,
+          MicroPython est conçu pour fonctionner sur des systèmes embarqués
+          disposant de ressources limitées. Il ne propose donc pas
+          nécessairement toutes les fonctionnalités de Python standard, et son
+          utilisation sur la calculatrice NumWorks impose de tenir compte à la
+          fois des capacités du langage, des modules disponibles et des
+          contraintes matérielles du support.
+        </p>
+        <p>
+          Dans le cadre d'ECMMP, trois aspects de cet environnement sont
+          particulièrement importants : la gestion des ressources graphiques,
+          les possibilités de compression des données visuelles et
+          l'optimisation des programmes afin de limiter leur occupation de
+          l'espace de stockage.
+        </p>
+
+        <h3>
+          a. Les possibilités et les contraintes du module graphique Kandinsky
+        </h3>
+        <p>
+          La NumWorks fournit le module kandinsky, une bibliothèque graphique
+          spécifique qui permet notamment d'afficher du texte, de colorer des
+          pixels et de remplir des rectangles. Elle met à disposition des
+          fonctions telles que <code>draw_string()</code>,
+          <code>set_pixel()</code> et <code>fill_rect()</code>, ainsi qu'une
+          fonction <code>color()</code> permettant de définir une couleur à
+          partir de ses composantes rouge, verte et bleue. Ces fonctions
+          constituent une base suffisante pour concevoir une interface graphique
+          personnalisée sans devoir développer un système d'affichage de bas
+          niveau.
+        </p>
+        <p>
+          Cependant, l'utilisation du graphisme doit rester mesurée dans le
+          cadre d'ECMMP. L'écran de la calculatrice possède une résolution de
+          320 x 240 pixels, soit 71 040 pixels au total. Une modification
+          graphique répétée, notamment lorsqu'elle implique de nombreux appels
+          individuels à <code>set_pixel</code>, peut entraîner un coût
+          d'exécution important. Il est donc préférable de privilégier des
+          opérations groupées, comme le remplissage de rectangles, et de limiter
+          le redessinage seulement aux zones qui doivent réellement être
+          actualisées. On peut noter qu'il est légèrement plus rapide d'appeler
+          <code>fill_rect</code> pour dessiner un rectangle de 1 x 1 que
+          d'appeler <code>set_pixel</code>.
+        </p>
+        <p>
+          Cette contrainte influence directement les choix d'interface du
+          projet. ECMMP étant un environnement destiné à l'édition de code, il
+          n'est pas nécessaire de lui ajouter des éléments visuels complexes ou
+          des animations coûteuses. Une interface sobre, composée de zones de
+          texte, de séparateurs et de quelques éléments graphiques simples,
+          répond davantage aux objectifs du projet tout en limitant les
+          opérations effectuées par le programme.
+        </p>
+
+        <h3>b. La compression des données graphiques</h3>
+        <p>
+          Une autre contrainte concerne la représentation des images dans les
+          scripts. Une image stockée directement sous la forme d'une longue
+          chaîne hexadécimale peut occuper un espace important, même lorsque
+          cette méthode facilite sa manipulation en Python.
+        </p>
+        <p>
+          Une première expérimentation a consisté à représenter une image
+          monochrome par une chaîne hexadécimale contenant également ses
+          dimensions. Dans l'exemple étudié, les quatre premiers caractères,
+          A078, correspondent à la largeur et à la hauteur de l'image : A0
+          représente 160 en hexadécimal et 78 représente 120. Les dimensions
+          peuvent ainsi être récupérées directement depuis le début de la chaîne
+          avant de procéder au décodage des données graphiques.
+        </p>
+        <p>
+          Cette expérimentation constitue une première preuve de faisabilité
+          pour le stockage d'une image sous forme de texte. Elle a également
+          permis d'identifier les limites d'une représentation qui consomme
+          plusieurs caractères pour chaque pixel ou groupe de pixels.
+        </p>
+        <p>
+          Une évolution envisagée pour ECMMP consiste à appliquer un principe
+          similaire à des images en couleur, en réduisant le nombre de couleurs
+          utilisables à 4 096. Ce choix correspond à 12 bits d'information par
+          pixel. Un alphabet de 64 symboles permettrait théoriquement de
+          représenter ces 12 bits à l'aide de deux symboles.
+        </p>
+        <p>
+          Il ne s'agirait toutefois pas d'appliquer directement l'encodage
+          Base64 standard à chaque pixel, mais de définir un encodage
+          personnalisé reposant sur un alphabet de 64 caractères. Une fonction
+          de décodage dédiée devrait ensuite reconstruire les valeurs associées
+          aux pixels et les transmettre aux fonctions graphiques de Kandinsky.
+          Cette solution demeure une proposition d'architecture : contrairement
+          à l'encodage hexadécimal monochrome, son fonctionnement n'a pas encore
+          été validé expérimentalement dans le cadre du projet.
+        </p>
+        <p>
+          Cette méthode pourrait réduire la longueur des chaînes représentant
+          les images par rapport à un encodage hexadécimal plus classique. Son
+          intérêt réel dépendrait néanmoins du format de comparaison choisi, du
+          coût du décodage et de la mémoire nécessaire à l'affichage. L'objectif
+          ne serait pas de multiplier les images dans ECMMP, mais de disposer
+          d'une méthode compacte pour quelques éléments graphiques utiles à
+          l'interface.
+        </p>
+
+        <h3>c. Les limites de MicroPython et l'optimisation des scripts</h3>
+        <p>
+          L'utilisation de MicroPython sur la NumWorks implique également de
+          tenir compte des fonctionnalités réellement disponibles dans la
+          version intégrée à Epsilon. Certaines bibliothèques ou fonctionnalités
+          présentes dans une installation Python classique peuvent être absentes
+          ou configurées différemment. Il est donc nécessaire de vérifier leur
+          disponibilité sur la calculatrice plutôt que de supposer qu'un
+          programme fonctionnant sur ordinateur pourra être exécuté sans
+          adaptation.
+        </p>
+        <p>
+          Ces différences influencent la conception des modules d'ECMMP. Chaque
+          fonctionnalité doit être développée en fonction des outils
+          effectivement accessibles, en évitant les dépendances inutiles et les
+          mécanismes trop coûteux pour l'environnement ciblé.
+        </p>
+        <p>
+          L'optimisation du code source constitue un autre levier. En Python, il
+          est possible d'importer une fonction sous un alias afin d'utiliser un
+          nom plus court dans le reste du programme. Par exemple :
+        </p>
+        <pre><code>from kandinsky import fill_rect as f</code></pre>
+        <p>
+          Les appels peuvent ensuite être écrits sous la forme
+          <code>f(...)</code> plutôt que <code>fill_rect(...)</code>. Le nom de
+          la fonction passe ainsi de neuf caractères à un seul, soit une
+          différence de huit caractères par occurrence dans le texte source.
+          Pour trente appels, l'économie théorique atteint donc 240 caractères.
+        </p>
+        <p>
+          Si chaque caractère du fichier occupe un octet dans la représentation
+          actuelle de la NumWorks, cette différence correspond à 240 octets.
+          Rapportée à un espace de stockage de 43 Ko, elle représente une
+          économie limitée, de l'ordre de 1/180 si l'on prend 43 000 octets
+          comme référence. Cette estimation doit être interprétée comme une
+          comparaison de longueur du code source : l'économie réelle dépend du
+          mode de stockage des scripts et de leur représentation interne.
+        </p>
+        <p>
+          L'intérêt de cette technique devient plus perceptible lorsque
+          plusieurs modules sont développés. ECMMP étant conçu pour accueillir
+          des outils et, éventuellement, plusieurs modules linguistiques, les
+          petites optimisations peuvent s'additionner à mesure que le projet
+          grandit. Elles ne remplacent cependant pas les optimisations
+          structurelles : réduire les dépendances, limiter les données inutiles
+          et éviter de charger des modules qui ne sont pas nécessaires restent
+          des moyens plus généraux de maîtriser les ressources.
+        </p>
+        <p>
+          De plus, certaines fonctions couramment associées à d'autres langages
+          de programmation ne sont pas directement utilisables dans
+          l'environnement Python de la NumWorks. C'est notamment le cas de
+          <code>printf()</code>, dont l'utilisation a été testée sans succès
+          dans l'environnement étudié. Cette différence impose d'adapter le code
+          aux fonctions effectivement disponibles dans la version de MicroPython
+          intégrée à la calculatrice.
+        </p>
+        <p>
+          Enfin, il convient de distinguer l'espace occupé par les scripts de la
+          mémoire vive utilisée pendant leur exécution. Le ramasse-miettes de
+          MicroPython, lorsqu'il est disponible et actif, récupère la mémoire
+          des objets qui ne sont plus accessibles ; il ne réduit pas directement
+          la taille des fichiers stockés. La conception d'ECMMP doit donc
+          considérer séparément la capacité de stockage des scripts, la mémoire
+          vive nécessaire à leur chargement et leur exécution, ainsi que le coût
+          des opérations graphiques.
+        </p>
+        <p>
+          En définitive, MicroPython offre suffisamment de possibilités pour
+          développer une interface personnalisée sur la NumWorks, mais son
+          utilisation exige des choix adaptés aux ressources disponibles. La
+          sobriété graphique, l'encodage compact des données et la réduction des
+          dépendances constituent ainsi des pistes complémentaires pour
+          construire un environnement modulaire qui reste exploitable sur la
+          calculatrice.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

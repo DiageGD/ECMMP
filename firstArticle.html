@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Article 1</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Veille technologique</h2>
+        <h3>Article 1 — Visual Studio Code sur Raspberry Pi</h3>
+
+        <p>
+          <strong>Titre :</strong> Visual Studio Code comes to Raspberry Pi<br />
+          <strong>Auteur :</strong> Ashley (avec la participation de Jim
+          Bennett, Microsoft)<br />
+          <strong>Source :</strong> Raspberry Pi<br />
+          <strong>Date :</strong> 12 février 2021<br />
+          <strong>Lien :</strong>
+          <a
+            href="https://www.raspberrypi.com/news/visual-studio-code-comes-to-raspberry-pi/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Consulter l'article original sur Raspberry Pi</a
+          >
+        </p>
+
+        <h4>1. Présentation de l'article</h4>
+        <p>
+          L'article publié sur le site officiel de Raspberry Pi présente
+          l'arrivée de Visual Studio Code sur les ordinateurs Raspberry Pi.
+          Jusqu'alors principalement utilisé sur Windows, MacOS et Linux pour
+          processeurs x64, l'éditeur devient également disponible avec des
+          versions compatibles ARM et ARM64, permettant son installation sur
+          Raspberry Pi OS.
+        </p>
+        <p>
+          Visual Studio Code est un éditeur de code qui peut être complété par
+          de nombreuses extensions. Il permet notamment de travailler avec
+          différents langages comme Python, JavaScript, TypeScript ou C/C++. Il
+          propose également des outils de gestion de versions avec Git et peut
+          être enrichi pour programmer des microcontrôleurs grâce à des
+          extensions comme PlatformIO.
+        </p>
+        <p>
+          L'article présente notamment l'exemple du Raspberry Pi 400, sur lequel
+          Visual Studio Code peut être utilisé avec un écran, un clavier et une
+          souris. L'intérêt est de permettre aux utilisateurs, notamment aux
+          débutants, de retrouver un environnement de développement complet sur
+          un ordinateur compact et abordable. Ils peuvent ainsi utiliser le même
+          outil pour apprendre plusieurs langages et réaliser différents types
+          de projets.
+        </p>
+
+        <h4>2. Analyse des avantages et des limites</h4>
+        <p>
+          Le principal avantage de cette solution est sa polyvalence. Grâce aux
+          extensions, Visual Studio Code peut être adapté à de nombreux langages
+          et usages. L'utilisateur peut donc conserver un seul éditeur pour
+          différents projets, sans devoir apprendre à utiliser plusieurs
+          logiciels.
+        </p>
+        <p>
+          L'installation de cet environnement sur un Raspberry Pi permet
+          également de profiter d'outils de développement complets sur un
+          ordinateur de petite taille et relativement accessible.
+        </p>
+        <p>
+          Cependant, Visual Studio Code reste un logiciel de bureau qui
+          fonctionne sur un système d'exploitation complet. Il faut donc
+          disposer d'un ordinateur capable de faire fonctionner Raspberry Pi OS
+          et l'éditeur. L'utilisation présentée dans l'article nécessite
+          également des périphériques habituels, comme un écran et un clavier.
+          Cette solution reste donc différente d'un environnement directement
+          intégré à un appareil spécialisé.
+        </p>
+
+        <h4>3. Comparaison avec ECMMP</h4>
+        <p>
+          ECMMP reprend une partie de cette idée : proposer plusieurs outils de
+          développement au sein d'un même environnement, plutôt que de
+          multiplier les logiciels indépendants. Toutefois, il pousse cette
+          intégration plus loin en fonctionnant directement sur la calculatrice
+          NumWorks, sans nécessiter d'ordinateur externe.
+        </p>
+        <p>
+          Cette approche permet d'avoir un environnement de développement
+          portable et autonome, mais impose aussi des limites importantes.
+          L'écran de la calculatrice est beaucoup plus petit que celui d'un
+          ordinateur, les possibilités de saisie sont différentes et les
+          ressources disponibles sont bien plus réduites. ECMMP ne peut donc pas
+          proposer le même confort d'utilisation ni le même choix de
+          fonctionnalités que Visual Studio Code.
+        </p>
+        <p>
+          Ces deux projets montrent qu'un environnement de développement peut
+          être adapté à des machines très différentes. Visual Studio Code
+          cherche à rendre un ordinateur compact aussi polyvalent qu'un poste de
+          travail classique, tandis qu'ECMMP cherche à intégrer directement les
+          fonctions essentielles d'un éditeur de code dans une calculatrice.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

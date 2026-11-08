@@ -1,0 +1,406 @@
+/* ==========================================================================
+   ECMMP — CSS Global (Commandes directes par balises, sans classes)
+   ========================================================================== */
+
+/* Réinitialisation de base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
+  background-color: #f4f6f9;
+  color: #2c3e50;
+  line-height: 1.7;
+}
+
+/* En-tête et Navigation globaux */
+header {
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+nav a,
+nav button {
+  color: #cbd5e1;
+  text-decoration: none;
+  font: inherit;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav button {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+nav a:hover,
+nav button:hover {
+  color: #ffffff;
+}
+
+#subMenuContainer {
+  text-align: center;
+}
+
+#subMenuContainer a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+#subMenuContainer a:hover {
+  color: #ffffff;
+}
+
+/* Conteneur principal et sections de contenu */
+main {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+}
+
+section {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+/* Typographie et hiérarchie des titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0f172a;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+h4 {
+  font-size: 1.2rem;
+  color: #334155;
+}
+
+p {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+ul,
+ol {
+  margin-bottom: 1.25rem;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #1d4ed8;
+}
+
+/* Blocs de code et code en ligne */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background-color: #f1f5f9;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  color: #0f172a;
+}
+
+pre {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* Figures, Images et Légendes (Optimisé pour tes schémas/visuels) */
+figure {
+  margin: 2.5rem auto;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  display: block;
+  margin: 0 auto;
+}
+
+figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+
+/* PAGE D'ACCUEIL */
+
+.home-page {
+    max-width: 1200px;
+}
+
+/* CONTENEUR PRINCIPAL */
+
+.home-carousel {
+    position: relative;
+    width: 100%;
+    min-height: 440px;
+    padding: 0;
+    margin: 2.5rem auto;
+    overflow: hidden;
+    background-color: #0f172a;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* DIAPOSITIVES */
+
+.home-carousel-track {
+    display: grid;
+    min-height: 440px;
+}
+
+.home-carousel-slide {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: 44% 56%;
+    min-width: 0;
+    min-height: 440px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+    pointer-events: none;
+}
+
+.home-carousel-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    pointer-events: auto;
+    z-index: 1;
+}
+
+/* IMAGE */
+
+.home-carousel-image {
+    min-width: 0;
+    min-height: 440px;
+    overflow: hidden;
+    background-color: #1e293b;
+}
+
+.home-carousel-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+}
+
+/* TEXTE */
+
+.home-carousel-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 3.5rem;
+    color: #e2e8f0;
+}
+
+.home-carousel-category {
+    margin-bottom: 1rem;
+    color: #93c5fd;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12rem;
+}
+
+.home-carousel-content h1,
+.home-carousel-content h2 {
+    margin: 0 0 1.5rem;
+    color: #ffffff;
+    border: none;
+    font-size: 2rem;
+    line-height: 1.3;
+}
+
+.home-carousel-content p:not(.home-carousel-category) {
+    margin-bottom: 2rem;
+    color: #cbd5e1;
+    line-height: 1.8;
+}
+
+/* BOUTON DE REDIRECTION */
+
+.home-carousel-link {
+    display: inline-block;
+    padding: 0.8rem 1.3rem;
+    background-color: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.home-carousel-link:hover {
+    background-color: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* FLÈCHES DE NAVIGATION */
+
+.home-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    background-color: rgba(15, 23, 42, 0.75);
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.home-carousel-arrow:hover {
+    background-color: #2563eb;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.home-carousel-previous {
+    left: 1rem;
+}
+
+.home-carousel-next {
+    right: 1rem;
+}
+
+/* COMMANDES INFÉRIEURES */
+
+.home-carousel-footer {
+    position: absolute;
+    right: 3.5rem;
+    bottom: 1.5rem;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.home-carousel-counter {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08rem;
+}
+
+.home-carousel-pause {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #64748b;
+    border-radius: 0.35rem;
+    background-color: transparent;
+    color: #e2e8f0;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.home-carousel-pause:hover {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+/* ACCESSIBILITÉ : RÉDUCTION DES ANIMATIONS */
+
+@media (prefers-reduced-motion: reduce) {
+    .home-carousel-slide,
+    .home-carousel-link,
+    .home-carousel-arrow {
+        transition: none;
+    }
+}

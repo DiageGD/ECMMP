@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Modules de langages et d'outils (C2)</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Modules de langages et d'outils : deuxième couche</h2>
+
+        <p>
+          La deuxième couche de l'ECMMP regroupe les composants spécialisés qui
+          assurent les fonctionnalités propres à l'environnement de
+          développement.
+        </p>
+        <p>
+          Contrairement au cœur, dont la responsabilité principale est de
+          coordonner le fonctionnement général de l'IDE, ces modules réalisent
+          des traitements spécifiques. Leur organisation repose sur deux
+          catégories distinctes : les modules de langages et les modules
+          d'outils.
+        </p>
+        <p>
+          Les modules d'outils prennent en charge les interactions et les
+          fonctionnalités nécessaires à l'utilisation de l'éditeur. Leur
+          fonctionnement repose sur une organisation interne pouvant comporter
+          de nombreuses fonctions auxiliaires, tout en conservant un nombre
+          limité de points d'entrée accessibles au cœur.
+        </p>
+        <p>
+          Les modules de langages possèdent une architecture différente. Ils ont
+          vocation à prendre en charge des traitements plus complexes, depuis
+          l'analyse du contenu source jusqu'à sa représentation ou son
+          exécution. Leur fonctionnement interne peut donc être particulièrement
+          développé, même si leur communication avec le cœur repose sur une
+          interface volontairement réduite.
+        </p>
+        <p>
+          Cette séparation permet de conserver une architecture générale
+          commune, tout en adaptant le fonctionnement interne de chaque module à
+          la nature des opérations qu'il doit effectuer.
+        </p>
+
+        <h3>1. Les modules de langages</h3>
+        <p>
+          Les modules de langages constituent une composante essentielle de
+          l'ECMMP. Ils ont pour objectif de permettre à l'environnement de
+          prendre en charge différents langages, chacun disposant de ses propres
+          règles de représentation et, selon sa nature, de traitement.
+        </p>
+        <p>
+          Leur fonctionnement se distingue de celui des modules d'outils par la
+          complexité des opérations qu'ils doivent réaliser. Là où un outil peut
+          généralement effectuer une opération ciblée à partir de paramètres
+          transmis par le cœur, un module linguistique doit pouvoir traiter un
+          ensemble de données représentant un programme complet.
+        </p>
+        <p>
+          Cette responsabilité implique plusieurs étapes : l'analyse du contenu,
+          sa structuration sous une représentation intermédiaire, puis son
+          exploitation pour produire un affichage ou effectuer une exécution.
+        </p>
+
+        <h4>a. Une architecture interne spécialisée</h4>
+        <p>
+          <strong
+            >Une fonction principale, plusieurs traitements internes :</strong
+          >
+          L'organisation envisagée pour les modules linguistiques repose sur un
+          principe différent de celui des modules d'outils. Le cœur ne doit pas
+          avoir à appeler individuellement toutes les fonctions nécessaires à
+          l'analyse et au traitement d'un programme. Il lui suffit de solliciter
+          le point d'entrée principal du module linguistique concerné.
+        </p>
+        <p>
+          À l'intérieur de celui-ci, plusieurs fonctions auxiliaires peuvent
+          alors être utilisées successivement afin de réaliser l'ensemble des
+          opérations nécessaires. Le fonctionnement peut notamment être organisé
+          autour de trois grandes étapes : l'analyse du contenu transmis par le
+          cœur, la construction d'une représentation structurée du programme, et
+          l'exploitation de cette représentation afin de réaliser son affichage
+          ou son exécution.
+        </p>
+        <p>
+          <strong>Une prise en charge propre à chaque langage :</strong> Chaque
+          langage possède ses propres règles de syntaxe et de représentation. Un
+          module destiné à HTML ne réalise donc pas exactement les mêmes
+          opérations qu'un module destiné à Python. Le premier doit notamment
+          reconnaître les balises et organiser les éléments d'un document,
+          tandis que le second doit être capable d'identifier des instructions
+          et de traiter leur enchaînement.
+        </p>
+
+        <h4>b. Analyse du contenu et identification des éléments du langage</h4>
+        <p>
+          <strong>Réception du code source :</strong> Lorsqu'un module
+          linguistique est sollicité, le cœur lui transmet le contenu du
+          programme sous la forme d'une chaîne de caractères (ou d'une structure
+          tokenisée). Le module doit alors analyser les données reçues afin
+          d'identifier les éléments qui composent le programme et de déterminer
+          leur signification selon les règles du langage concerné.
+        </p>
+        <p>
+          <strong>Identification lexicale et syntaxique :</strong> L'analyse
+          nécessite de distinguer plusieurs catégories d'éléments : mots-clés,
+          identificateurs, opérateurs et constantes pour Python, ou balises et
+          attributs pour HTML. Une première étape effectue une analyse lexicale
+          (reconnaissance des tokens), suivie d'une analyse syntaxique pour
+          déterminer leur organisation.
+        </p>
+        <p>
+          <strong>Construction d'une représentation intermédiaire :</strong> À
+          l'issue de cette analyse, le module produit une structure de données
+          plus facile à exploiter : une liste d'intentions. Chaque élément
+          correspond à une instruction, une déclaration ou un élément de
+          structure. Cette séparation évite de parcourir directement le texte
+          source brut lors de l'exécution ou du rendu graphique.
+        </p>
+
+        <h4>c. Exploitation de la représentation intermédiaire</h4>
+        <p>
+          <strong>Une fonction d'exécution ou de rendu :</strong> Une fois la
+          représentation intermédiaire construite, le module la parcourt pour
+          réaliser les opérations associées. Pour un langage visuel comme HTML,
+          le module transforme les informations en opérations graphiques
+          (disposition, texte, couleurs). Pour un langage exécutable comme
+          Python, il interprète les instructions et applique les opérations
+          correspondantes.
+        </p>
+        <p>
+          <strong>Une interprétation progressive des instructions :</strong>
+          L'exécution peut être réalisée de manière progressive, en traitant
+          successivement les éléments de la liste d'intentions. Cela évite de
+          bloquer l'interface et ouvre la possibilité d'intégrer des mécanismes
+          de pause, de reprise et de gestion des interactions utilisateur.
+        </p>
+
+        <h4>d. Gestion des résultats et communication avec l'interface</h4>
+        <p>
+          <strong>Retour des informations au cœur :</strong> Le module
+          linguistique transmet au cœur l'état du traitement, les éléments
+          destinés à la console, les éventuelles erreurs détectées et les
+          demandes d'interaction.
+        </p>
+        <p>
+          <strong>Séparation entre résultat et console :</strong> Le module
+          linguistique détermine les informations textuelles à produire, tandis
+          que le cœur conserve la responsabilité d'afficher ces messages dans la
+          zone de console dédiée de l'IDE.
+        </p>
+        <p>
+          <strong>Gestion des erreurs :</strong> Les erreurs détectées lors de
+          l'analyse ou de l'exécution sont encapsulées avec leur emplacement
+          dans le code et transmises au cœur pour un affichage propre dans
+          l'interface.
+        </p>
+
+        <h4>e. Gestion des interactions pendant l'exécution</h4>
+        <p>
+          <strong>La problématique des saisies (ex: input()) :</strong>
+          Lorsqu'un script demande une saisie utilisateur, l'exécution ne peut
+          pas continuer immédiatement. Pour éviter de bloquer l'interface ou de
+          relancer le programme depuis le début, l'ECMMP privilégie une
+          exécution suspendue.
+        </p>
+        <p>
+          <strong>Gestion persistante du contexte d'exécution :</strong> Le
+          module sauvegarde la position de l'instruction en cours, les variables
+          et la nature de l'interaction attendue. Le cœur prend en charge la
+          réception de la saisie clavier puis transmet la valeur au module, qui
+          reprend le traitement exactement là où il s'était arrêté.
+        </p>
+
+        <h4>f. Limites et perspectives des modules linguistiques</h4>
+        <p>
+          La construction de représentations intermédiaires et le maintien d'un
+          contexte d'exécution représentent un coût mémoire non négligeable sur
+          la NumWorks. Un équilibre doit être trouvé entre la précision de
+          l'analyse et l'espace mémoire consommé par les objets MicroPython.
+        </p>
+
+        <h3>2. Les modules d'outils</h3>
+        <p>
+          Les modules d'outils fournissent les fonctionnalités nécessaires à
+          l'utilisation de l'ECMMP (gestion du clavier, déplacement du curseur,
+          etc.) et réalisent des traitements ciblés en dehors de
+          l'interprétation des langages.
+        </p>
+
+        <h4>a. Organisation générale des modules d'outils</h4>
+        <p>
+          Comme pour les modules linguistiques, leur communication avec le cœur
+          repose sur deux points d'entrée principaux : une fonction
+          d'initialisation (préparation des structures de données) et une
+          fonction d'exécution (sollicitée pendant la boucle principale).
+        </p>
+
+        <h4>b. Le module de gestion du clavier : keyboard.py</h4>
+        <p>
+          <strong>Rôle et fonctionnement :</strong> Ce module traduit les appuis
+          physiques détectés via le module <code>ion</code> en caractères
+          exploitables par l'éditeur.
+        </p>
+        <p>
+          <strong>Table de correspondance et états :</strong> Il gère une table
+          de correspondance associant chaque touche à ses valeurs selon trois
+          états : classique, Alpha et Shift. Il conserve l'état de saisie actuel
+          et retourne au cœur le caractère détecté ainsi que l'état actualisé.
+        </p>
+
+        <h4>c. Le module de gestion du curseur : mouse.py</h4>
+        <p>
+          <strong>Rôle et fonctionnement :</strong> Ce module gère un curseur
+          graphique déplacé à l'aide des touches directionnelles de la
+          calculatrice.
+        </p>
+        <p>
+          <strong>Restauration et données graphiques :</strong> Pour éviter de
+          dégrader l'interface lors des déplacements, le module utilise les
+          fonctions de <code>kandinsky</code> pour sauvegarder les pixels situés
+          sous le curseur avant son affichage, et restaurer l'arrière-plan lors
+          du déplacement suivant.
+        </p>
+
+        <h4>d. Exploitation et coordination des modules d'outils</h4>
+        <p>
+          Le cœur stocke les structures d'état retournées par la fonction
+          d'initialisation des outils et les leur retransmet lors des appels
+          d'exécution. Cette conservation d'état garantit un fonctionnement
+          continu sans réinitialisations superflues.
+        </p>
+
+        <h4>e. Limites et perspectives des modules d'outils</h4>
+        <p>
+          Les appels répétition aux outils dans la boucle principale imposent
+          une grande légèreté de code. C'est ici que l'optimisation par
+          compteurs d'itérations au niveau du cœur prend tout son sens pour
+          réguler la charge du microcontrôleur.
+        </p>
+
+        <h3>Conclusion de la deuxième couche</h3>
+        <p>
+          La deuxième couche distribue les responsabilités de l'ECMMP entre des
+          composants spécialisés et autonomes. En séparant l'outillage de
+          l'interprétation linguistique tout en normalisant leurs interfaces
+          avec le cœur, l'ECMMP garantit une structure modulaire, claire et
+          évolutive.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

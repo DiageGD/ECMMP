@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+    
+    <main class="home-page">
+        <section class="home-carousel" aria-label="Présentation du site ECMMP">
+
+            <div class="home-carousel-track" aria-live="off">
+
+                <!-- Diapositive 1 -->
+                <article class="home-carousel-slide is-active" aria-hidden="false">
+                    <div class="home-carousel-image">
+                        <img src="items/images/numworksCalculatrice.jpg"
+                            alt="Calculatrice graphique NumWorks">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">SUPPORT</p>
+                        <h1>La calculatrice NumWorks</h1>
+                        <p>
+                            Découvrez le matériel qui sert de support à notre
+                            environnement de programmation : ses composants,
+                            ses caractéristiques et son fonctionnement.
+                        </p>
+                        <a class="home-carousel-link" href="numworksCalculator.html">
+                            Découvrir la calculatrice
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 2 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/cFileMPConfigPort.png"
+                            alt="Illustration du système d'exploitation Epsilon">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">SUPPORT</p>
+                        <h2>Le système Epsilon</h2>
+                        <p>
+                            Explorez le système d'exploitation de NumWorks,
+                            son architecture et les mécanismes qui permettent
+                            à la calculatrice de fonctionner.
+                        </p>
+                        <a class="home-carousel-link" href="operatingSystemEpsilon.html">
+                            Explorer Epsilon
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 3 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/micropythonIllustration.jpg"
+                            alt="Illustration de l'environnement MicroPython">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">SUPPORT</p>
+                        <h2>L'environnement MicroPython</h2>
+                        <p>
+                            Découvrez l'interpréteur Python intégré à la
+                            calculatrice, ses possibilités et les particularités
+                            de son environnement d'exécution.
+                        </p>
+                        <a class="home-carousel-link" href="micropythonEnvironnement.html">
+                            Découvrir MicroPython
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 4 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/bouclesModelsECMMP.png"
+                            alt="Illustration de l'architecture principale C1">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">ARCHITECTURE</p>
+                        <h2>Le cœur de l'ECMMP (C1)</h2>
+                        <p>
+                            Plongez dans l'organisation générale de notre projet
+                            et découvrez les fondations qui structurent
+                            l'environnement de programmation.
+                        </p>
+                        <a class="home-carousel-link" href="ecmmpMainCore.html">
+                            Explorer le cœur du projet
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 5 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/blocsSchemesECMMP.png"
+                            alt="Illustration des modules et outils C2">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">ARCHITECTURE</p>
+                        <h2>Les modules (C2)</h2>
+                        <p>
+                            Découvrez les différents langages, modules et outils
+                            qui participent à la conception et à l'utilisation
+                            de notre environnement.
+                        </p>
+                        <a class="home-carousel-link" href="ecmmpLanguagesAndToolsModules.html">
+                            Découvrir les modules
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 6 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/cherryOnTheCakeMeme.jpg"
+                            alt="Illustration des compléments C3">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">ARCHITECTURE</p>
+                        <h2>Les compléments (C3)</h2>
+                        <p>
+                            Retrouvez les éléments complémentaires et les
+                            extensions qui viennent enrichir l'environnement
+                            de programmation.
+                        </p>
+                        <a class="home-carousel-link" href="ecmmpComplementsAndAddOn.html">
+                            Explorer les compléments
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 7 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/readingPaper.jpg"
+                            alt="Plus d'inspiration sur la fin pour les images">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">VEILLE TECHNOLOGIQUE</p>
+                        <h2>Suivre les évolutions technologiques</h2>
+                        <p>
+                            Retrouvez nos articles de veille et leur synthèse
+                            autour des évolutions et innovations technologiques
+                            liées à notre domaine d'étude.
+                        </p>
+                        <a class="home-carousel-link" href="synthesisArticles.html">
+                            Consulter la synthèse
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Diapositive 8 -->
+                <article class="home-carousel-slide" aria-hidden="true">
+                    <div class="home-carousel-image">
+                        <img src="items/images/documentationRessources.jpg"
+                            alt="Illustration des ressources documentaires">
+                    </div>
+                    <div class="home-carousel-content">
+                        <p class="home-carousel-category">DOCUMENTATION</p>
+                        <h2>Ressources et documentation</h2>
+                        <p>
+                            Consultez les documentations officielles, les
+                            références techniques et les différents outils
+                            utilisés au cours de la réalisation du projet.
+                        </p>
+                        <a class="home-carousel-link" href="ressourcesAndDocumentation.html">
+                            Accéder aux ressources
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Commandes du carrousel -->
+            <button class="home-carousel-arrow home-carousel-previous"
+                    type="button" aria-label="Diapositive précédente">
+                &#10094;
+            </button>
+
+            <button class="home-carousel-arrow home-carousel-next"
+                    type="button" aria-label="Diapositive suivante">
+                &#10095;
+            </button>
+
+            <div class="home-carousel-footer">
+                <p class="home-carousel-counter" aria-live="polite">01 / 08</p>
+                <button class="home-carousel-pause"
+                        type="button"
+                        aria-label="Mettre le défilement automatique en pause"
+                        aria-pressed="false">
+                    Pause
+                </button>
+            </div>
+
+        </section>
+
+        
+        <section class="home-introduction">
+
+            <h2>Présentation du projet</h2>
+
+            <p>
+                L'objectif de ce projet est de créer un environnement de développement
+                modulaire en MicroPython, inspiré de VS Code et conçu pour fonctionner
+                dans un environnement aux ressources limitées. Reproduire un tel
+                système, même dans une version adaptée aux contraintes de la plateforme,
+                représente un véritable défi technique.
+            </p>
+
+            <p>
+                Ce rapport présente le cheminement qui a conduit à la création d'un
+                environnement de développement modulaire en MicroPython (ou du moins
+                à ces détails actuels).
+            </p>
+
+            <p>
+                Ce projet a vu le jour en 2026. La calculatrice NumWorks, qui avait été
+                délaissée pendant ma licence, a fait l'objet d'une redécouverte lors de
+                mon arrivée en BTS, ce qui m'a amené à réaliser de nombreux programmes
+                dans son environnement MicroPython : des jeux, des applications
+                fonctionnelles, puis les premières ébauches du projet actuel.
+            </p>
+
+            <p>
+                Le concept d'environnement de développement modulaire en MicroPython,
+                que nous désignerons désormais sous le nom d'« Environnement de Codage
+                Modulaire en MicroPython », ou simplement « ECMMP », est un projet pour
+                lequel je n'ai pas identifié de précédent au cours de mes recherches.
+                Sa réalisation présente plusieurs difficultés. MicroPython est une
+                version allégée de Python et la NumWorks fonctionne avec des ressources
+                matérielles limitées, notamment en mémoire, en puissance de calcul et
+                en stockage. Il faut donc concevoir l'ECMMP en tenant compte de ces
+                contraintes, plutôt que de chercher à reproduire exactement un
+                environnement de développement pour ordinateur. L'objectif est de
+                proposer un espace de travail modulaire, capable d'accueillir
+                différents langages et outils directement sur la calculatrice.
+            </p>
+
+            <p>
+                Pour autant, les caractéristiques matérielles de la NumWorks ne se
+                résument pas à ses contraintes. Son microcontrôleur STM32, cadencé
+                à 216 MHz, ses 256 Ko de SRAM et ses 8 Mo de mémoire Flash constituent
+                des ressources sur lesquelles nous pouvons nous appuyer pour concevoir
+                ce projet.
+            </p>
+
+            <p>
+                Ces caractéristiques ne suffisent toutefois pas, à elles seules, à
+                déterminer les performances réelles d'une application comme notre IDE :
+                celles-ci dépendent également du logiciel utilisé, de l'architecture
+                du programme et des ressources effectivement disponibles lors de
+                son exécution.
+            </p>
+
+            <p>
+                La NumWorks représente donc une plateforme intéressante pour
+                expérimenter la conception d'un environnement de développement
+                modulaire, tant sur le plan matériel que logiciel. Nous allons
+                examiner les caractéristiques du support, la conception et le
+                fonctionnement de l'ECMMP, puis les limites et les évolutions
+                possibles du projet.
+            </p>
+        </section>
+    </main>
+  </body>
+</html>

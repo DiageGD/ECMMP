@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Cœur de l'IDE (C1)</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Cœur de l'IDE : première couche</h2>
+
+        <p>
+          Le cœur constitue la première couche de l'architecture de l'ECMMP. Il
+          représente le point central de l'environnement, autour duquel
+          s'organisent les différents modules de langages et d'outils.
+        </p>
+        <p>
+          Son rôle principal est d'assurer la coordination générale du
+          programme. Il prend en charge l'initialisation de l'environnement, la
+          gestion de son fonctionnement et les échanges avec les composants
+          spécialisés. Il est également responsable d'une partie du
+          fonctionnement propre de l'éditeur, notamment de son organisation
+          graphique et de la gestion de son contenu.
+        </p>
+        <p>
+          Le cœur peut ainsi être considéré comme le chef d'orchestre de l'ECMMP
+          : il ne réalise pas nécessairement tous les traitements lui-même, mais
+          il détermine quand et comment les différents composants interviennent.
+          Il conserve néanmoins des responsabilités qui lui sont propres et ne
+          dépend donc pas exclusivement des modules externes à sa première
+          couche.
+        </p>
+        <p>
+          Cette architecture repose sur une volonté de séparation des
+          responsabilités. Le cœur doit conserver une structure aussi générale
+          que possible, tandis que les traitements spécifiques sont délégués aux
+          composants adaptés. Cette distinction permet d'envisager l'évolution
+          de l'IDE sans avoir à modifier systématiquement son fonctionnement
+          central.
+        </p>
+
+        <h3>1. Position du cœur dans l'architecture générale</h3>
+
+        <h4>a. Un point central de coordination</h4>
+        <p>
+          Le cœur est la partie autour de laquelle s'organise l'ensemble de
+          l'ECMMP. Il assure la liaison entre les différents composants et
+          constitue leur principal point d'entrée depuis le programme central.
+        </p>
+        <p>
+          Cette position explique son classement dans la première couche : il ne
+          s'agit pas d'un module spécialisé parmi d'autres, mais de la structure
+          qui permet leur fonctionnement commun.
+        </p>
+        <p>
+          Les modules de langages et les modules d'outils interviennent donc
+          sous son contrôle. Le cœur décide du moment où ils doivent être
+          initialisés ou sollicités, leur transmet les informations nécessaires
+          et récupère, lorsque cela est prévu, les données qu'ils retournent.
+        </p>
+        <p>
+          Cette organisation évite que les différents modules aient besoin de
+          gérer eux-mêmes l'intégralité du fonctionnement de l'IDE. Ils peuvent
+          se concentrer sur leurs responsabilités respectives, tandis que la
+          coordination demeure centralisée.
+        </p>
+        <p>
+          Le fonctionnement général repose ainsi sur une relation entre un
+          composant central et plusieurs composants spécialisés. Cette relation
+          permet de conserver une architecture lisible, dans laquelle chaque
+          élément possède un rôle identifiable, c'est pourquoi le cœur
+          correspond à l'élément central de l'architecture et porte le
+          qualificatif de première couche.
+        </p>
+
+        <h4>b. Une séparation des responsabilités</h4>
+        <p>
+          La conception du cœur repose sur une distinction entre deux catégories
+          de traitements. La première regroupe les opérations qui relèvent
+          directement du fonctionnement général de l'éditeur. Elles sont prises
+          en charge par le cœur lui-même. La seconde regroupe les opérations
+          spécialisées qui nécessitent l'intervention d'un module. Le cœur ne
+          reproduit alors pas le traitement : il transmet les paramètres
+          nécessaires au composant concerné et lui délègue son exécution.
+        </p>
+        <p>
+          Cette distinction permet notamment d'éviter de mélanger les mécanismes
+          propres à un langage avec les fonctions générales de l'interface. Le
+          cœur n'a donc pas vocation à connaître les détails internes de chaque
+          module. Il doit uniquement connaître les fonctions qu'il peut appeler,
+          les paramètres qu'elles attendent et la nature des informations
+          qu'elles peuvent retourner.
+        </p>
+        <p>
+          Cette approche limite les dépendances entre les différentes parties du
+          programme. Un module peut ainsi être modifié dans son fonctionnement
+          interne sans que cela entraîne nécessairement une modification du
+          cœur, à condition que son interface de communication reste compatible.
+        </p>
+
+        <h4>c. Des responsabilités conservées par le cœur</h4>
+        <p>
+          La modularité de l'ECMMP ne signifie pas que l'intégralité de ses
+          fonctionnalités doit être externalisée. Le cœur conserve plusieurs
+          opérations qui lui sont propres, notamment celles qui concernent
+          l'organisation générale de l'éditeur et son apparence.
+        </p>
+        <p>
+          Il peut ainsi assurer directement la gestion de certains éléments
+          graphiques, la construction de l'interface et l'organisation de ses
+          différentes zones. Cette répartition permet de distinguer l'interface
+          générale de l'éditeur des traitements spécialisés réalisés par les
+          modules linguistiques. Le cœur reste donc un véritable composant
+          fonctionnel. Il n'est pas uniquement un intermédiaire chargé de
+          transmettre des informations aux autres modules.
+        </p>
+
+        <h3>2. Organisation des communications avec les modules</h3>
+
+        <h4>a. Un nombre limité de points d'entrée</h4>
+        <p>
+          Afin de simplifier les échanges entre le cœur et les modules, le
+          fonctionnement retenu repose sur deux points d'entrée principaux au
+          maximum pour chaque module. Le premier correspond à la fonction
+          d'initialisation. Elle permet de préparer l'environnement propre au
+          module et de retourner les informations nécessaires à son utilisation.
+          Le second correspond à sa fonction principale d'exécution. Elle est
+          sollicitée lorsque le cœur souhaite faire intervenir le module dans le
+          fonctionnement de l'IDE.
+        </p>
+        <p>
+          Cette organisation permet de conserver une interface de communication
+          simple et prévisible. Du point de vue du cœur, il n'est donc pas
+          nécessaire de connaître l'ensemble des fonctions internes d'un module.
+          Celui-ci peut posséder ses propres fonctions auxiliaires pour
+          organiser ses traitements, mais le cœur n'a besoin de connaître que
+          ses points d'entrée principaux. Cette limitation facilite également
+          l'intégration de nouveaux composants. Tant que le module respecte les
+          conventions de communication prévues, il peut être sollicité de la
+          même manière que les autres.
+        </p>
+
+        <h4>b. La fonction d'initialisation</h4>
+        <p>
+          La fonction d'initialisation intervient lors de la préparation de
+          l'environnement. Elle permet au module de construire ou de récupérer
+          les données dont il aura besoin pendant son fonctionnement. Ces
+          informations peuvent ensuite être transmises au cœur sous la forme
+          d'une structure de données adaptée. Le cœur conserve les données
+          retournées afin de pouvoir les réutiliser lors des appels suivants.
+        </p>
+        <p>
+          Cette méthode permet notamment de maintenir l'état d'un module entre
+          plusieurs itérations de la boucle principale, sans devoir recommencer
+          systématiquement son initialisation. La fonction d'initialisation
+          constitue ainsi une étape distincte de l'exécution courante du module.
+          Elle prépare les conditions nécessaires à son utilisation ultérieure.
+        </p>
+
+        <h4>c. La fonction principale d'exécution</h4>
+        <p>
+          La seconde fonction constitue le point d'entrée utilisé lorsque le
+          cœur souhaite solliciter le module. Contrairement à l'initialisation,
+          elle intervient pendant le fonctionnement de l'IDE. Elle reçoit les
+          informations nécessaires au traitement demandé, effectue les
+          opérations relevant du module et retourne les résultats utiles à la
+          poursuite de l'exécution.
+        </p>
+        <p>
+          Les paramètres transmis dépendent de la nature du composant concerné.
+          Cette organisation permet au cœur de conserver le contrôle du
+          déroulement général tout en laissant chaque module gérer ses
+          opérations internes. Le fonctionnement reste donc centralisé au niveau
+          de l'orchestration, mais décentralisé au niveau de la réalisation des
+          traitements spécialisés.
+        </p>
+
+        <h4>d. Une interface commune, des paramètres différents</h4>
+        <p>
+          Le nombre limité de points d'entrée ne signifie pas que tous les
+          modules doivent recevoir les mêmes paramètres. Un module d'outil et un
+          module linguistique ne répondent pas aux mêmes besoins. Le cœur leur
+          transmet donc des informations différentes, adaptées à leur fonction.
+          Le principe commun concerne uniquement la manière de communiquer avec
+          eux : initialiser leur environnement, puis solliciter leur fonction
+          principale lorsque cela est nécessaire.
+        </p>
+        <p>
+          Cette distinction permet de conserver une architecture uniforme sans
+          imposer une structure de données identique à des composants dont les
+          responsabilités sont différentes.
+        </p>
+
+        <h3>3. Fonctionnement du cœur pendant l'exécution</h3>
+
+        <h4>a. Initialisation générale de l'IDE</h4>
+        <p>
+          Au lancement de l'ECMMP, le cœur commence par préparer son propre
+          environnement. Cette étape comprend notamment l'initialisation des
+          données nécessaires à l'éditeur et la préparation des éléments
+          graphiques qui composent son interface.
+        </p>
+        <p>
+          Il procède ensuite à l'initialisation des modules nécessaires en
+          sollicitant leur fonction dédiée. Les données retournées sont
+          conservées afin de maintenir les informations nécessaires à leur
+          fonctionnement pendant toute la durée d'utilisation de l'IDE. Une fois
+          cette préparation effectuée, le programme peut entrer dans sa boucle
+          principale. Cette phase de démarrage permet de distinguer clairement
+          la construction initiale de l'environnement de son fonctionnement
+          courant.
+        </p>
+
+        <h4>
+          b. La boucle principale d'exécution et optimisation par compteurs
+        </h4>
+        <p>
+          Le fonctionnement de l'ECMMP repose sur une boucle principale qui
+          assure la continuité de l'interface. Elle permet au cœur de traiter
+          successivement les interactions de l'utilisateur, d'actualiser les
+          données de l'environnement et de solliciter les modules concernés.
+        </p>
+        <p>
+          Afin de fluidifier et de limiter la vitesse d'exécution des modules
+          lourds (comme le module de gestion du clavier qui effectue près de 37
+          vérifications à chaque appel et risque de saturer les calculs), la
+          boucle principale intègre des compteurs conditionnés par des
+          structures de contrôle conditionnelles (<code>if</code>). Ainsi,
+          certains modules ou traitements exigeants ne sont exécutés que toutes
+          les 2, 3, 4, 5 ou 10 itérations processeur selon leur criticité.
+        </p>
+        <p>
+          À chaque itération, le cœur vérifie les informations nécessaires au
+          fonctionnement des composants, actualise les compteurs d'exécution et
+          transmet les paramètres adaptés. Les opérations sont réalisées de
+          manière successive, selon l'organisation définie par le programme
+          principal. La boucle constitue donc le mécanisme central de
+          coordination de l'IDE, offrant un point unique d'optimisation.
+        </p>
+
+        <h4>c. Appels aux modules d'outils</h4>
+        <p>
+          Les modules d'outils sont principalement sollicités pendant
+          l'exécution de la boucle principale (en tenant compte des restrictions
+          de fréquence par compteurs). Le cœur leur transmet les informations
+          dont ils ont besoin pour réaliser leurs traitements. Ces paramètres
+          peuvent notamment correspondre à des données relatives à l'état de
+          l'interface ou aux interactions détectées.
+        </p>
+        <p>
+          Le module reçoit ainsi les informations qui concernent directement sa
+          responsabilité, sans avoir à accéder à l'ensemble des données internes
+          du cœur. Cette transmission ciblée permet de limiter les dépendances
+          entre les composants et de conserver une bonne séparation des
+          traitements. Le cœur reste responsable de l'organisation des appels :
+          il détermine le moment où le module doit intervenir et exploite les
+          informations retournées lorsque cela est nécessaire.
+        </p>
+
+        <h4>d. Appels aux modules linguistiques</h4>
+        <p>
+          Le fonctionnement des modules linguistiques présente une particularité
+          : leur intervention concerne principalement le traitement et la
+          représentation du contenu de l'éditeur. Le cœur conserve le programme
+          saisi par l'utilisateur dans une chaîne de caractères unique, qui
+          constitue le stockage central du code source.
+        </p>
+        <p>
+          Lorsqu'un traitement linguistique ou un rendu du contenu est
+          nécessaire, le cœur transmet cette chaîne à la fonction principale du
+          module correspondant. Le module linguistique peut alors effectuer ses
+          propres opérations sur le contenu transmis, notamment les traitements
+          nécessaires à sa représentation graphique. Cette méthode permet de
+          conserver le contenu du programme indépendamment de la manière dont il
+          est affiché. Le cœur n'a donc pas besoin d'intégrer directement les
+          particularités de chaque langage.
+        </p>
+        <p>
+          Une évolution envisagée consiste à effectuer un découpage préalable du
+          contenu en unités lexicales, appelées tokens. Cette étape permettrait
+          de structurer les informations transmises au module et de lui éviter
+          de devoir traiter systématiquement un bloc de texte brut
+          particulièrement volumineux. Le fonctionnement exact de cette
+          préparation dépendra du format retenu et des besoins des différents
+          modules linguistiques.
+        </p>
+
+        <h4>e. Organisation des traitements et actualisation de l'interface</h4>
+        <p>
+          Les différents composants n'interviennent pas nécessairement de la
+          même manière ni au même moment. Certains sont sollicités pendant le
+          fonctionnement courant de la boucle principale, tandis que d'autres
+          interviennent lorsqu'une opération particulière doit être effectuée,
+          notamment lors du traitement du contenu de l'éditeur.
+        </p>
+        <p>
+          Cette distinction permet d'éviter de confondre la gestion permanente
+          de l'interface avec les traitements ponctuels associés à certaines
+          fonctionnalités. Le cœur conserve ainsi la maîtrise de l'ordre
+          d'exécution et détermine les opérations nécessaires à chaque étape.
+          Cette organisation doit également permettre d'éviter les traitements
+          redondants. Par exemple, une opération de rendu ne devrait pas
+          nécessairement être répétée lorsque les données qui la déterminent
+          n'ont pas changé. L'optimisation de ces appels constitue donc un
+          aspect important de l'évolution du fonctionnement général.
+        </p>
+
+        <h3>4. Gestion du contenu de l'éditeur</h3>
+
+        <h4>a. Stockage centralisé du code source</h4>
+        <p>
+          Le contenu de l'éditeur est conservé dans une chaîne de caractères
+          unique. Cette chaîne constitue la représentation persistante du
+          programme saisi par l'utilisateur en mémoire. Elle contient l'ensemble
+          du texte, y compris les espaces et les caractères de contrôle
+          nécessaires à l'organisation du code. On peut la considérer comme le
+          tampon textuel principal de l'éditeur, ou plus simplement comme son
+          giga string.
+        </p>
+        <p>
+          Cette méthode présente l'avantage de disposer d'une seule source de
+          référence pour le contenu du programme. Les différentes opérations de
+          représentation peuvent ainsi exploiter la même donnée sans avoir à
+          maintenir plusieurs copies complètes du texte. Le cœur conserve la
+          responsabilité de ce stockage, tandis que les composants chargés du
+          traitement linguistique peuvent recevoir le contenu lorsqu'ils doivent
+          intervenir.
+        </p>
+
+        <h4>b. Différencier le stockage et la représentation graphique</h4>
+        <p>
+          Il est important de distinguer le stockage du code source de sa
+          représentation à l'écran. La chaîne principale conserve le contenu
+          intégral du programme. Elle ne constitue toutefois pas directement la
+          structure utilisée pour effectuer chaque opération graphique. Pour
+          afficher correctement le texte, celui-ci doit être organisé selon les
+          besoins de la fonction de rendu.
+        </p>
+        <p>
+          Une fonction d'affichage peut ainsi découper temporairement la chaîne
+          principale en plusieurs chaînes plus petites, notamment à partir des
+          caractères de retour à la ligne. Cette opération permet de disposer
+          d'une liste de chaînes correspondant aux différentes lignes du
+          programme. Cette liste constitue une structure temporaire, propre à la
+          fonction qui réalise le rendu. Elle n'a pas vocation à remplacer la
+          chaîne principale ni à devenir un second stockage permanent du code.
+        </p>
+        <p>
+          Une fois l'opération d'affichage terminée, la variable locale et les
+          références qu'elle contient ne sont plus nécessaires. Elles peuvent
+          donc être libérées lorsque le ramasse-miettes de MicroPython récupère
+          les objets qui ne sont plus accessibles. Cette distinction permet de
+          conserver un stockage centralisé tout en utilisant temporairement des
+          structures adaptées aux besoins de l'affichage.
+        </p>
+
+        <h4>c. Organisation de l'affichage ligne par ligne</h4>
+        <p>
+          L'affichage d'un programme contenant plusieurs lignes nécessite de
+          contrôler leur positionnement à l'écran. Une représentation sous forme
+          de chaîne unique ne suffit pas toujours à obtenir le résultat
+          graphique attendu, notamment lorsque les coordonnées de chaque ligne
+          doivent être maîtrisées. Le découpage du contenu en chaînes distinctes
+          permet alors de traiter les lignes individuellement.
+        </p>
+        <p>
+          La fonction de rendu peut parcourir la liste obtenue et transmettre
+          successivement chaque chaîne à <code>draw_string()</code>, en adaptant
+          les coordonnées d'affichage. Cette méthode permet notamment de
+          conserver un positionnement cohérent entre les différentes lignes et
+          de mieux maîtriser la représentation du contenu dans l'espace
+          disponible. Elle s'inscrit dans la logique générale de séparation
+          entre les données persistantes et les structures temporaires utilisées
+          pour produire l'affichage.
+        </p>
+
+        <h4>d. Intérêt de cette séparation</h4>
+        <p>
+          Cette organisation présente plusieurs avantages. Premièrement, le
+          contenu principal reste indépendant de son apparence. Une modification
+          de la présentation ne nécessite donc pas de modifier la structure
+          utilisée pour conserver le code source.
+        </p>
+        <p>
+          Deuxièmement, les structures temporaires sont créées uniquement
+          lorsqu'elles sont nécessaires. Elles ne sont pas conservées
+          inutilement pendant toute la durée d'utilisation de l'IDE. Enfin,
+          cette séparation facilite l'intégration des modules linguistiques. Le
+          cœur peut conserver le contenu dans un format général, tandis que
+          chaque module reste libre d'organiser son traitement et son affichage
+          selon ses propres besoins. Le stockage, le traitement et la
+          représentation graphique sont ainsi trois opérations distinctes,
+          pouvant être organisées sans confondre leurs responsabilités.
+        </p>
+
+        <h3>5. Les fonctions propres au cœur : conception de l'éditeur</h3>
+
+        <h4>a. Une interface qui ne dépend pas entièrement des modules</h4>
+        <p>
+          Bien que les modules spécialisés assurent une partie importante des
+          traitements de l'ECMMP, le cœur conserve ses propres fonctions. Ces
+          fonctions concernent principalement la structure générale de l'éditeur
+          et les éléments graphiques qui ne relèvent pas directement d'un
+          traitement linguistique ou d'un outil spécialisé.
+        </p>
+        <p>
+          Il peut notamment organiser les différentes zones de l'interface,
+          définir leur position et gérer les éléments graphiques nécessaires à
+          la présentation générale de l'environnement. Cette responsabilité
+          permet de conserver une cohérence visuelle entre les différents
+          modules. Le cœur ne délègue donc pas l'intégralité de l'affichage : il
+          conserve la maîtrise de l'organisation générale de l'interface, tandis
+          que les modules interviennent sur les éléments qui relèvent de leur
+          spécialité.
+        </p>
+
+        <h4>b. Séparation entre interface générale et contenu linguistique</h4>
+        <p>
+          La conception de l'éditeur implique de distinguer deux niveaux
+          d'affichage. Le premier concerne l'interface générale : son
+          organisation, ses zones de travail et ses éléments graphiques communs.
+          Ces opérations relèvent du cœur. Le second concerne la représentation
+          du contenu du programme. Cette opération est destinée aux modules
+          linguistiques, qui peuvent adapter l'affichage aux caractéristiques du
+          langage sélectionné.
+        </p>
+        <p>
+          Cette répartition évite de mélanger la conception visuelle de l'IDE
+          avec les règles de représentation propres à chaque langage. Elle
+          permet également d'envisager plusieurs modules linguistiques sans
+          devoir redéfinir entièrement l'apparence générale de l'environnement
+          pour chacun d'eux. Le cœur conserve ainsi la structure commune de
+          l'éditeur, tandis que les composants spécialisés peuvent intervenir à
+          l'intérieur de cette structure.
+        </p>
+
+        <h4>c. Utilisation des fonctions graphiques de la NumWorks</h4>
+        <p>
+          L'interface de l'ECMMP est développée directement dans l'environnement
+          graphique disponible sur la calculatrice. Le cœur exploite notamment
+          les fonctions de Kandinsky afin de construire et d'actualiser certains
+          éléments de l'interface. Les opérations graphiques doivent être
+          organisées en tenant compte des dimensions de l'écran et des
+          ressources disponibles.
+        </p>
+        <p>
+          La conception de l'éditeur doit donc privilégier une organisation
+          adaptée à la taille de la calculatrice, en évitant de multiplier les
+          opérations graphiques inutiles. Cette contrainte matérielle influence
+          directement la manière dont les fonctions propres au cœur sont
+          conçues. Elle impose de rechercher un équilibre entre la lisibilité de
+          l'interface, la quantité d'informations affichées et le coût des
+          traitements graphiques.
+        </p>
+
+        <h3>6. Limites et perspectives d'évolution du cœur</h3>
+
+        <h4>a. Gestion de la mémoire</h4>
+        <p>
+          La conservation du code source dans une chaîne de caractères unique
+          simplifie l'organisation du contenu, mais elle présente certaines
+          limites. En Python, les chaînes de caractères sont immuables. Une
+          opération de concaténation crée donc une nouvelle chaîne à partir des
+          données précédentes et du nouveau contenu. Lorsque le programme
+          devient volumineux et que de nombreux caractères sont ajoutés
+          successivement, ces opérations peuvent entraîner des allocations
+          mémoire répétées. Ce phénomène doit être pris en compte sur la
+          NumWorks, dont la mémoire vive disponible pour MicroPython est
+          limitée.
+        </p>
+        <p>
+          Le découpage temporaire du contenu en plusieurs chaînes pour les
+          besoins de l'affichage entraîne également la création d'objets
+          supplémentaires. Cette organisation facilite le rendu, mais son coût
+          mémoire doit être évalué. Une évolution possible consisterait à
+          adopter une représentation du contenu mieux adaptée aux opérations
+          d'édition, par exemple une structure organisée en lignes. Il serait
+          toutefois nécessaire de comparer les coûts de stockage et de
+          manipulation des différentes approches avant de retenir une solution
+          définitive.
+        </p>
+
+        <h4>b. Coût de la transmission des données</h4>
+        <p>
+          Les modules linguistiques doivent pouvoir traiter le contenu transmis
+          par le cœur. Lorsque le programme devient important, les opérations
+          nécessaires à son analyse et à sa représentation peuvent devenir plus
+          coûteuses. Le projet envisage donc un découpage du contenu en tokens
+          afin de structurer les informations avant leur traitement
+          linguistique.
+        </p>
+        <p>
+          Cette approche pourrait faciliter le travail des modules en leur
+          fournissant des unités mieux adaptées à l'analyse du programme. Il
+          faudra néanmoins veiller à ne pas créer une quantité excessive
+          d'objets supplémentaires. La tokenisation peut elle-même nécessiter
+          des allocations mémoire et son intérêt dépendra de la méthode de
+          représentation retenue. L'objectif ne consiste donc pas uniquement à
+          réduire la taille des données transmises, mais à organiser leur
+          traitement de manière plus efficace.
+        </p>
+
+        <h4>c. Organisation de la boucle principale</h4>
+        <p>
+          La boucle principale doit effectuer suffisamment de traitements pour
+          maintenir une interface réactive, sans solliciter inutilement le
+          processeur. La répétition des appels aux composants constitue un point
+          de vigilance. Certaines opérations peuvent être nécessaires à chaque
+          itération, tandis que d'autres ne devraient intervenir qu'en présence
+          d'un changement de données ou d'un événement particulier. Une
+          distinction plus précise entre les traitements permanents et les
+          traitements ponctuels pourrait donc contribuer à améliorer les
+          performances globales.
+        </p>
+        <p>
+          La gestion des appuis prolongés sur les touches constitue également
+          une difficulté à prendre en compte. Une détection fondée uniquement
+          sur l'état instantané d'une touche peut provoquer plusieurs
+          traitements successifs lorsque celle-ci reste enfoncée. Des mécanismes
+          permettant de distinguer un nouvel appui du maintien d'une touche
+          pourront être étudiés afin d'améliorer la précision des interactions.
+        </p>
+
+        <h4>d. Compatibilité et évolutivité des interfaces</h4>
+        <p>
+          La dépendance du cœur à un nombre limité de points d'entrée facilite
+          l'intégration des modules, mais impose également de respecter
+          certaines conventions. Les paramètres transmis, les structures de
+          données retournées et les responsabilités de chaque fonction doivent
+          rester clairement définis. Une modification non compatible de
+          l'interface d'un module pourrait entraîner des erreurs lors de son
+          utilisation par le cœur.
+        </p>
+        <p>
+          Il sera donc nécessaire de conserver une structure de communication
+          stable, tout en permettant aux composants de faire évoluer leurs
+          mécanismes internes. Cette exigence est particulièrement importante
+          pour les modules linguistiques, dont les besoins peuvent être
+          différents selon les langages pris en charge.
+        </p>
+
+        <h4>e. Perspectives d'amélioration</h4>
+        <p>
+          Plusieurs améliorations pourront être envisagées pour renforcer le
+          fonctionnement général du cœur. La gestion du contenu pourra notamment
+          être enrichie afin de prendre en charge les modifications à
+          différentes positions, la suppression de caractères et l'organisation
+          plus complète des lignes de code.
+        </p>
+        <p>
+          La gestion de l'affichage pourra également être optimisée pour éviter
+          les opérations graphiques répétées lorsque le contenu ou l'interface
+          ne nécessitent aucune actualisation. Enfin, les échanges avec les
+          modules pourront évoluer afin de prendre en charge des traitements
+          plus structurés, notamment grâce à la préparation du contenu
+          linguistique sous forme de tokens. Ces évolutions devront conserver le
+          principe fondamental de l'architecture : le cœur reste responsable de
+          l'organisation générale et de la coordination, tandis que les
+          composants spécialisés réalisent les traitements qui leur sont
+          attribués.
+        </p>
+
+        <h3>Conclusion de la première couche</h3>
+        <p>
+          Le cœur de l'ECMMP constitue le point central de l'ensemble de
+          l'architecture. Il organise les interactions entre les différents
+          composants, conserve le contenu principal de l'éditeur et assure une
+          partie de la construction de son interface. Son fonctionnement repose
+          sur une séparation des responsabilités : les opérations générales
+          restent sous son contrôle, tandis que les traitements spécialisés sont
+          confiés aux modules correspondants.
+        </p>
+        <p>
+          La limitation des points d'entrée à une fonction d'initialisation et
+          une fonction principale d'exécution permet de conserver des échanges
+          simples et cohérents. Le cœur peut ainsi solliciter les modules sans
+          dépendre de leur fonctionnement interne. Cette organisation doit
+          permettre de faire évoluer progressivement l'environnement, tout en
+          conservant une structure centrale relativement stable. Le cœur
+          constitue ainsi le socle sur lequel reposent les autres couches de
+          l'ECMMP : il assure leur cohérence, leur coordination et leur
+          intégration dans un environnement de développement unique.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

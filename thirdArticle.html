@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Article 3 : ViperIDE</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Veille technologique</h2>
+        <h3>Article 3 — ViperIDE : programmer depuis un navigateur</h3>
+
+        <p>
+          <strong>Titre :</strong> How to write code for your Raspberry Pi Pico
+          in your web browser with ViperIDE<br />
+          <strong>Auteur :</strong> Les Pounder<br />
+          <strong>Source :</strong> Tom's Hardware<br />
+          <strong>Date :</strong> 13 juillet 2024<br />
+          <strong>Lien :</strong>
+          <a
+            href="https://www.tomshardware.com/raspberry-pi/raspberry-pi-pico/how-to-write-code-for-your-raspberry-pi-pico-in-your-web-browser-with-viperide"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Consulter l'article original sur Tom's Hardware</a
+          >
+        </p>
+
+        <h4>1. Présentation de l'article</h4>
+        <p>
+          L'article de Tom's Hardware présente ViperIDE, un environnement de
+          développement créé par Volodymyr Shymanskyy et accessible directement
+          depuis un navigateur web. Il permet de programmer des cartes
+          électroniques avec MicroPython sans avoir à installer un éditeur de
+          code complet sur son appareil. Comme il fonctionne dans un navigateur,
+          il peut être utilisé depuis différents supports : ordinateur,
+          Chromebook ou même smartphone.
+        </p>
+        <p>
+          ViperIDE rassemble plusieurs outils dans une seule interface : un
+          éditeur de code, un terminal interactif (REPL), un gestionnaire de
+          fichiers et un gestionnaire de paquets. Ce dernier permet notamment
+          d'ajouter des bibliothèques sur la carte utilisée. L'article montre
+          cette possibilité avec une bande de LED NeoPixel, dont le
+          fonctionnement nécessite l'installation d'un module supplémentaire.
+        </p>
+        <p>
+          L'outil propose également plusieurs moyens de communiquer avec la
+          carte électronique, notamment par USB, Bluetooth ou WebREPL. Il est
+          ainsi possible d'écrire, d'envoyer et d'exécuter du code depuis le
+          navigateur.
+        </p>
+
+        <h4>2. Analyse des avantages et des limites</h4>
+        <p>
+          Le principal avantage de ViperIDE est son accessibilité. L'utilisateur
+          n'a pas besoin d'installer un environnement de développement complet
+          et peut retrouver ses outils sur différents appareils. La présence
+          d'un gestionnaire de paquets est également intéressante, puisqu'elle
+          permet d'ajouter des bibliothèques selon les besoins du projet, sans
+          devoir les intégrer toutes dès le départ.
+        </p>
+        <p>
+          Cependant, cette solution nécessite un appareil externe pour utiliser
+          le navigateur et communiquer avec la carte électronique.
+          L'environnement de développement et le matériel sur lequel le
+          programme s'exécute restent donc séparés. Son fonctionnement dépend
+          également de la possibilité d'établir une connexion entre les deux
+          appareils.
+        </p>
+
+        <h4>3. Comparaison avec l'ECMMP</h4>
+        <p>
+          ECMMP adopte une approche différente. Son principal avantage est de
+          réunir l'environnement de développement et le matériel d'exécution sur
+          un seul appareil : la calculatrice NumWorks. Il n'est donc pas
+          nécessaire d'utiliser un ordinateur ou un smartphone pour écrire et
+          exécuter les programmes.
+        </p>
+        <p>
+          En revanche, cette autonomie impose certaines limites. Contrairement à
+          ViperIDE, ECMMP ne dispose pas d'un gestionnaire de paquets permettant
+          d'ajouter librement des bibliothèques. Il doit fonctionner avec les
+          modules disponibles dans la version de MicroPython intégrée à Epsilon.
+          Il n'offre pas non plus le même accès aux possibilités matérielles de
+          la carte, puisque le développement s'effectue à travers les fonctions
+          mises à disposition par le système de la calculatrice.
+        </p>
+        <p>
+          Ces deux solutions répondent donc à des besoins différents : ViperIDE
+          privilégie l'accessibilité et la possibilité d'ajouter des
+          fonctionnalités, tandis qu'ECMMP cherche à proposer un environnement
+          de développement directement intégré à son appareil d'exécution.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

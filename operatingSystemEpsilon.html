@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — OS Epsilon</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>L'environnement NumWorks et le système Epsilon</h2>
+
+        <p>
+          La NumWorks ne se résume pas à son boîtier et son microcontrôleur :
+          elle intègre également un système d'exploitation embarqué conçu
+          spécifiquement pour ses capacités matérielles et ses usages éducatifs,
+          baptisé <strong>Epsilon</strong>. L'étude de son code source public
+          permet d'analyser ses composants logiciels et leur influence directe
+          sur la conception de l'ECMMP.
+        </p>
+
+        <h3>
+          1. Une architecture logicielle adaptée aux ressources disponibles
+        </h3>
+        <p>
+          Epsilon repose sur une organisation modulaire articulée autour de
+          plusieurs composants fondamentaux :
+        </p>
+        <ul>
+          <li>
+            <strong>Ion :</strong> assure l'abstraction matérielle et la gestion
+            des interactions bas niveau.
+          </li>
+          <li>
+            <strong>Kandinsky :</strong> prend en charge les opérations
+            graphiques et l'affichage à l'écran.
+          </li>
+          <li>
+            <strong>Escher :</strong> fournit les éléments d'interface
+            utilisateur nécessaires aux applications de la calculatrice.
+          </li>
+        </ul>
+
+        <p>
+          L'intégration de MicroPython au sein de cet environnement embarqué
+          impose de fortes restrictions par rapport à une installation standard
+          sur ordinateur. Pour s'adapter aux ressources limitées de la
+          calculatrice, certaines fonctionnalités de l'interpréteur sont
+          restreintes ou désactivées lors de la compilation :
+        </p>
+        <ul>
+          <li>
+            <strong
+              >La manipulation des données binaires (struct et bytearray)
+              :</strong
+            >
+            Le module <code>struct</code> permet de convertir des données entre
+            leur représentation binaire et des valeurs exploitables, tandis que
+            le type <code>bytearray</code> manipule des séquences d'octets
+            modifiables. Leur absence ou restriction dans certaines
+            configurations complique la lecture, la conversion et le traitement
+            direct des fichiers ou des données graphiques binaires, imposant de
+            concevoir des alternatives adaptées.
+          </li>
+          <li>
+            <strong
+              >L'organisation des données (collections, array et attrtuple)
+              :</strong
+            >
+            Ces structures facilitent normalement l'organisation des données,
+            l'utilisation de types spécifiques ou l'accès aux éléments d'un
+            tuple par leur nom. En leur absence, le développeur doit s'appuyer
+            sur les structures natives restantes ou concevoir ses propres
+            mécanismes de remplacement, tout en surveillant l'impact sur la
+            mémoire et les performances.
+          </li>
+          <li>
+            <strong
+              >L'accès aux informations d'exécution et aux flux (sys, io,
+              __file__) :</strong
+            >
+            Le module <code>sys</code> fournit des informations sur
+            l'interpréteur, <code>io</code> gère les entrées/sorties et
+            l'attribut <code>__file__</code> indique le chemin d'un module. Des
+            restrictions sur ces outils complexifient la gestion des fichiers et
+            la localisation des ressources, un point critique pour un IDE
+            modulaire qui doit charger dynamiquement ses composants sans saturer
+            la RAM.
+          </li>
+          <li>
+            <strong
+              >L'exécution asynchrone et la gestion de la mémoire (async/await
+              et gc) :</strong
+            >
+            La syntaxe asynchrone <code>async/await</code> peut être désactivée
+            selon la compilation, nécessitant d'autres modes d'organisation
+            coopérative des tâches. Quant au ramasse-miettes (garbage collector
+            <code>gc</code>), il récupère la mémoire des objets inaccessibles,
+            mais ne peut libérer un objet s'il reste référencé, exigeant une
+            gestion rigoureuse des références.
+          </li>
+        </ul>
+        <p>
+          Ces contraintes démontrent qu'il ne s'agit pas simplement de porter un
+          éditeur de code d'ordinateur, mais de concevoir une architecture
+          logicielle sur mesure qui limite les allocations inutiles et optimise
+          le chargement des ressources.
+        </p>
+
+        <h3>2. Les fonctionnalités documentées dans la Toolbox</h3>
+        <p>
+          L'environnement de programmation de la NumWorks intègre une Toolbox
+          donnant accès à des fonctions, des variables, des symboles, des
+          structures de contrôle et des modules. En explorant son arborescence
+          (par exemple <em>Toolbox -> Modules -> Kandinsky</em>), l'utilisateur
+          découvre les fonctions de dessin comme
+          <code>draw_string(text, x, y)</code>.
+        </p>
+
+        <figure>
+          <img
+            src="items/images/numworksToolbox.png"
+            alt="Visuel extrait de la toolbox NumWorks"
+          />
+          <figcaption>
+            Affichage documenté de la fonction draw_string dans la toolbox
+            NumWorks
+          </figcaption>
+        </figure>
+
+        <p>
+          Toutefois, l'aide intégrée présente des limites : elle n'affiche pas
+          nécessairement l'ensemble des paramètres acceptés par les fonctions.
+          Par exemple, <code>draw_string</code> accepte des paramètres
+          additionnels pour personnaliser les couleurs du texte et de son
+          arrière-plan.
+        </p>
+        <p>
+          Pour l'ECMMP, cette nuance est capitale : un environnement de
+          développement se doit non seulement d'offrir une zone d'édition, mais
+          également d'aider l'utilisateur à découvrir les fonctionnalités
+          disponibles et à comprendre leurs paramètres effectifs.
+        </p>
+
+        <h3>3. Les contraintes liées à l'exécution des programmes</h3>
+        <p>
+          Les scripts exécutés sur la NumWorks ne disposent pas de ressources
+          dédiées exclusives ; ils partagent le processeur avec les autres
+          tâches du système (gestion du clavier, affichage, rafraîchissement
+          global).
+        </p>
+        <p>
+          L'analyse des configurations de MicroPython, en particulier la macro
+          <code>MICROPY_VM_HOOK_LOOP</code>, permet d'étudier la liaison entre
+          la machine virtuelle et les opérations du système. En pratique, une
+          boucle de calcul continue ou un rafraîchissement d'écran non maîtrisé
+          sature inutilement les ressources et ralentit l'ensemble de la
+          calculatrice.
+        </p>
+        <p>
+          L'ECMMP intègre donc cette contrainte au cœur de sa conception :
+          l'interface doit limiter ses actualisations aux strictes modifications
+          utiles et employer des boucles de traitement efficaces pour concilier
+          les exigences d'un IDE avec les capacités physiques de la NumWorks.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

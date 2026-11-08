@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <title>ECMMP — Documentation et Ressources</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav id="main-nav">
+        <a href="index.html">Accueil</a> |
+        <button onclick="toggleCategory('support')">Support</button> |
+        <button onclick="toggleCategory('ide')">Architecture</button> |
+        <button onclick="toggleCategory('veille')">Veille</button> |
+        <button onclick="toggleCategory('plus')">Plus</button>
+      </nav>
+      <div id="subMenuContainer"></div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Documentation et ressources utilisées</h2>
+
+        <p>
+          Le développement de l'ECMMP s'appuie sur différentes ressources
+          techniques, documentations officielles et outils de conception. Cette
+          page rassemble les principales sources consultées au cours du projet,
+          notamment pour étudier le matériel de la NumWorks, comprendre son
+          environnement logiciel et concevoir l'architecture de l'IDE.
+        </p>
+
+        <h3>1. Documentation officielle et environnement logiciel</h3>
+
+        <p>
+          Ces ressources permettent de comprendre le fonctionnement de
+          MicroPython, son intégration sur la NumWorks et les possibilités
+          offertes par l'environnement de programmation.
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a
+                href="https://micropython.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                MicroPython — Site officiel
+              </a>
+              :
+            </strong>
+            Documentation et présentation du langage MicroPython, de ses
+            fonctionnalités et de son fonctionnement sur les systèmes embarqués.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://www.numworks.com/manual/python/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NumWorks — Manuel Python
+              </a>
+              :
+            </strong>
+            Documentation de l'environnement Python intégré à la calculatrice,
+            notamment ses fonctionnalités, ses modules et les outils disponibles
+            pour programmer.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://www.numworks.com/fr/graphique/manuel/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NumWorks — Manuel d'utilisation
+              </a>
+              :
+            </strong>
+            Manuel général de la calculatrice présentant ses applications, ses
+            fonctionnalités et les différentes possibilités offertes
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://www.numworks.com/fr/graphique/manuel/compliance/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NumWorks — Sécurité et conformité
+              </a>
+              :
+            </strong>
+            Documentation concernant les conditions de sécurité, de conformité
+            et de préservation de l'intégrité de l'appareil.
+          </li>
+        </ul>
+
+        <h3>2. Documentation matérielle et électronique</h3>
+
+        <p>
+          L'étude de l'architecture matérielle repose principalement sur les
+          documents techniques publiés par NumWorks et les fabricants des
+          composants électroniques utilisés dans la calculatrice.
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a
+                href="https://www.numworks.com/engineering/hardware/electrical/parts/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NumWorks — Inventaire des composants matériels
+              </a>
+              :
+            </strong>
+            Liste des différents composants électroniques de la calculatrice,
+            accompagnée de leurs références et de leurs documentations
+            techniques officielles.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://www.numworks.com/engineering/hardware/electrical/parts/stm32f730-arm-mcu-datasheet-8749cc54.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                STM32F730V8T6 — Datasheet officielle
+              </a>
+              :
+            </strong>
+            Documentation technique du microcontrôleur principal de la NumWorks.
+            Elle détaille notamment son architecture interne, ses
+            caractéristiques électriques, ses capacités de mémoire et ses
+            différents périphériques.
+          </li>
+        </ul>
+
+        <h3>3. Code source et documentation technique d'Epsilon</h3>
+
+        <p>
+          Le système d'exploitation Epsilon étant open source, son code
+          constitue une ressource essentielle pour étudier son architecture
+          interne et comprendre les adaptations réalisées sur MicroPython.
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a
+                href="https://github.com/numworks/epsilon/tree/version-26"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub — NumWorks Epsilon (version 26)
+              </a>
+              :
+            </strong>
+            Dépôt officiel contenant le code source du système d'exploitation de
+            la NumWorks. La branche version-26 correspond à la version étudiée
+            pour le développement de l'ECMMP.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://github.com/numworks/epsilon/blob/version-26/epsilon/python/port/mpconfigport.h"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub — mpconfigport.h
+              </a>
+              :
+            </strong>
+            Fichier de configuration spécifique au port MicroPython d'Epsilon.
+            Il permet notamment d'étudier les fonctionnalités activées,
+            désactivées ou adaptées lors de la compilation de l'interpréteur.
+          </li>
+        </ul>
+
+        <h3>4. Simulateur et outils de conception</h3>
+
+        <p>
+          Plusieurs outils complémentaires ont été utilisés pour expérimenter
+          les fonctionnalités de la calculatrice et produire les représentations
+          graphiques nécessaires à la documentation du projet.
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a
+                href="https://www.numworks.com/emulator/graphing/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NumWorks — Simulateur en ligne
+              </a>
+              :
+            </strong>
+            Émulateur permettant de reproduire le fonctionnement de la
+            calculatrice directement dans un navigateur, sans nécessiter
+            l'utilisation permanente de l'appareil physique.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://imgonline.tools/fr/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ImgOnline Tools
+              </a>
+              :
+            </strong>
+            Outils de traitement et de modification d'images utilisés pour
+            préparer certains visuels et schémas du projet.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://www.canva.com/fr_fr/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Canva
+              </a>
+              :
+            </strong>
+            Outil de conception graphique utilisé pour réaliser des schémas,
+            illustrations et représentations visuelles destinés à faciliter la
+            compréhension de l'architecture de l'ECMMP.
+          </li>
+        </ul>
+
+        <h3>5. Outils d'assistance par intelligence artificielle</h3>
+
+        <p>
+          Des assistants conversationnels ont également été utilisés comme
+          outils complémentaires durant le développement et la documentation de
+          l'ECMMP.
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a
+                href="https://gemini.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google — Gemini
+              </a>
+              :
+            </strong>
+            Assistant conversationnel utilisé pour accompagner les recherches,
+            explorer certaines pistes techniques et faciliter la compréhension
+            de différents concepts.
+          </li>
+
+          <li>
+            <strong>
+              <a
+                href="https://chatgpt.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                OpenAI — ChatGPT
+              </a>
+              :
+            </strong>
+            Assistant conversationnel utilisé pour obtenir des explications
+            techniques, accompagner la réflexion architecturale et bénéficier
+            d'une aide au développement et à la rédaction.
+          </li>
+        </ul>
+
+        <p>
+          Ces assistants constituent des outils d'accompagnement et ne
+          remplacent pas les documentations techniques officielles, qui restent
+          les références privilégiées pour vérifier les informations relatives
+          au matériel et aux logiciels étudiés.
+        </p>
+
+        <h3>6. Documentation technique du projet</h3>
+
+        <p>
+          Le développement de l'ECMMP et l'étude de son architecture sont
+          également documentés dans un rapport technique dédié. Ce document
+          rassemble les recherches, les analyses, les choix de conception et les
+          détails de réalisation du projet.
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a
+                href="items/docs/ECMMP_rapport_technique_Tiago_Da_Silva_2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Rapport technique de l'ECMMP (PDF)
+              </a>
+              :
+            </strong>
+            Document de 54 pages présentant en détail l'étude du support
+            matériel et logiciel, l'architecture de l'environnement de
+            développement ainsi que les différentes étapes de sa conception et
+            de sa réalisation.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
